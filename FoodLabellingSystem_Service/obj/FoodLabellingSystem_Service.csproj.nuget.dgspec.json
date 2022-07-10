@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mgdan\\source\\repos\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj": {}
+    "D:\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mgdan\\source\\repos\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj": {
+    "D:\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mgdan\\source\\repos\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj",
+        "projectUniqueName": "D:\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj",
         "projectName": "FoodLabellingSystem_Service",
-        "projectPath": "C:\\Users\\mgdan\\source\\repos\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj",
+        "projectPath": "D:\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service.csproj",
         "packagesPath": "C:\\Users\\mgdan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mgdan\\source\\repos\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\obj\\",
+        "outputPath": "D:\\FoodLabellingSystem_Service\\FoodLabellingSystem_Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,6 +43,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
