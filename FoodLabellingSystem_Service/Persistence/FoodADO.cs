@@ -29,16 +29,15 @@ namespace FoodLabellingSystem_Service.Persistence
                    
                     while (dataReader.Read())
                     {
-                        string? foodId = dataReader["foodId"].ToString();
-                        string? description = dataReader["description"].ToString();
-                        string? dishType = dataReader["dishType"].ToString();
-                        string? cuisineType = dataReader["cuisineType"].ToString();
-                        string? foodType = dataReader["foodType"].ToString();
+                        string foodId = dataReader.GetString(0);
+                        string description = dataReader.GetString(1);
+                        string dishType = dataReader.GetString(2);
+                        string cuisineType = dataReader.GetString(3);
+                        string foodType = dataReader.GetString(4);
                         
-                        // database makes sure that nither of them is null.
-                        if (foodId != null && description != null && dishType !=null && cuisineType != null && foodType != null )
-                            foods.Add(new Food(foodId, description, dishType, cuisineType, foodType));
+                       foods.Add(new Food(foodId, description, dishType, cuisineType, foodType));
                     }
+                    dataReader.Close();
                 }
             
             connection.Close();
@@ -94,7 +93,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 {
 
                     SqlCommand sqlCommand = connection.CreateCommand();
-                    sqlCommand.CommandText = "delete Food where foodId = @foodId;";
+                    sqlCommand.CommandText = "delete from Food where foodId = @foodId;";
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@foodId", foodId);
                     
@@ -171,6 +170,34 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Close();
             }
             return queryResult;
+        }
+
+        public Food GetById(string foodId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
+            {
+
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+
+                    SqlCommand command = new SqlCommand("select * from Food where FoodId=@foodId;", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@foodId", foodId);
+
+
+                    SqlDataReader dataReader = command.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        return new Food(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4));
+                    }
+                    dataReader.Close();
+
+                }
+                connection.Close();
+            }
+          return  new Food();
         }
     }
 }

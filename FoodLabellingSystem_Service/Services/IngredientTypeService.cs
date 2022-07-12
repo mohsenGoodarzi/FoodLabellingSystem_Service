@@ -23,14 +23,7 @@ namespace FoodLabellingSystem_Service.Services
 
         public List<IngredientType> GetAll()
         {
-            List<IngredientType> ingredientTypes = new List<IngredientType>();
-            SqlDataReader? dataReader = ingredientTypeDAO.GetAll();
-            if (dataReader != null) {
-                while (dataReader.Read()) {
-
-                    ingredientTypes.Add(new IngredientType());
-                }
-            }
+            List<IngredientType> ingredientTypes = ingredientTypeDAO.GetAll();
             return ingredientTypes;
         }
 

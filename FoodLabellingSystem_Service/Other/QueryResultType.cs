@@ -2,7 +2,7 @@
 {
     public enum QueryResultType
     {
-        NOTHING_CHANGED, SUCCEED, FAILED
+        NOTHING_CHANGED = 0, SUCCEED = 1, FAILED = -1
     }
 }
 

@@ -9,13 +9,13 @@ namespace FoodLabellingSystem_Service.Models
         [Key]
         [StringLength(50)]
         [Display(Name = "Group")]
-        public string? IngredientTypeId { get; set; }
+        public string IngredientTypeId { get; set; }
 
         [Required]
         [Column("member")]
         [StringLength(50)]
         [Display(Name = "Member")]
-        public string? Member { get; set; }
+        public string Member { get; set; }
 
         public IngredientType()
         {

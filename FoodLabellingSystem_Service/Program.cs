@@ -1,4 +1,13 @@
+using FoodLabellingSystem_Service.Persistence;
+using FoodLabellingSystem_Service.Persistence.Interfaces;
+using FoodLabellingSystem_Service.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IUnitDAO, UnitDAO>();
+builder.Services.AddScoped<IUnitService, UnitService>();
+
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

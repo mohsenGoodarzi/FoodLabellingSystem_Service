@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Linq;
 using FoodLabellingSystem_Service.Models;
 using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
@@ -14,27 +15,35 @@ namespace FoodLabellingSystem_Service.Services
         {
             _unitDAO = unitDAO;
         }
+        public List<Unit> Filter(Func<Unit, bool> func) {
 
-        public Task<List<Unit>> GetAll() {
+                return _unitDAO.getAll().Where(x => func(x)).ToList();           
+            }
+
+        public Task<Units> GetAll() {
             
                 return Task.Run(()=>{
 
-                List<Unit> units = new List<Unit>();
-
-                SqlDataReader? dataReader = _unitDAO.getAll();
-                if (dataReader != null)
-                {
-                    while (dataReader.Read())
-                    {
-                        // ToGram column id is 1.
-                        units.Add(new Unit(dataReader["UnitId"].ToString(), dataReader.GetDouble(1)));
-                    }
-
-                }
+                    Units units = new Units(); 
+                    
+                    units.AllUnits = _unitDAO.getAll();
                 return units;
+                
             });
            
         }
+
+        public Task<Unit> GetById(string unitId)
+        {
+
+            return Task.Run(() => {
+
+                return _unitDAO.GetById(unitId);
+
+            });
+
+        }
+
 
         public Task<QueryResult> Add(Unit unit) {
 

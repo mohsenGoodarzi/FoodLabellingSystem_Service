@@ -1,4 +1,5 @@
-﻿using FoodLabellingSystem_Service.Other;
+﻿using FoodLabellingSystem_Service.Models;
+using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
 using System;
 using System.Data;
@@ -15,9 +16,9 @@ namespace FoodLabellingSystem_Service.Persistence
         {
             _configuration = configuration;
         }
-        public SqlDataReader? GetAll()
+        public List<IngredientType> GetAll()
         {
-            SqlDataReader? dataReader = default;
+            List<IngredientType> ingredientTypes = new List<IngredientType>();
             using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
             {
 
@@ -27,11 +28,18 @@ namespace FoodLabellingSystem_Service.Persistence
 
                     SqlCommand sqlCommand = new SqlCommand("select * from IngredientType;", connection);
                     sqlCommand.CommandType = CommandType.Text;
-                    dataReader = sqlCommand.ExecuteReader();
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+
+                    while (dataReader.Read()) { 
+                    string ingredientTypeId = dataReader.GetString(0);
+                    string member = dataReader.GetString(1);
+                        ingredientTypes.Add(new IngredientType(ingredientTypeId, member));
+                    }
+                    dataReader.Close();
                 }
                 connection.Close();
             }
-            return dataReader;
+            return ingredientTypes;
         }
         public QueryResult Add(string ingredientTypeId, string member)
         {
@@ -76,7 +84,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == ConnectionState.Open)
                 {
 
-                    SqlCommand command = new SqlCommand("delete IngredientType where IngredientTypeId=@ingredientTypeId;", connection);
+                    SqlCommand command = new SqlCommand("delete from IngredientType where IngredientTypeId=@ingredientTypeId;", connection);
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@ingredientTypeId", ingredientTypeId);
                    
@@ -149,6 +157,31 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Close();
             }
             return queryResult;
+        }
+
+        public IngredientType GetById(string ingredientTypeId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
+            {
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+                    SqlCommand command = new SqlCommand("select * from IngredientType where IngredientTypeId=@ingredientTypeId;", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@ingredientTypeId", ingredientTypeId);
+
+
+                    SqlDataReader dataReader = command.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        return new IngredientType(dataReader.GetString(0), dataReader.GetString(1));
+                    }
+                    dataReader.Close();
+                }
+                connection.Close();
+            }
+            return new IngredientType();
         }
     }
 }

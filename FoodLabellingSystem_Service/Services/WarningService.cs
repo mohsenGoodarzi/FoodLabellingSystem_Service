@@ -19,17 +19,8 @@ namespace FoodLabellingSystem_Service.Services
 
           return Task.Run(()=>{
                 {
-                    List<Warning> warnings = new List<Warning>();
-                    SqlDataReader? dataReader = _warningDAO.getAll();
-
-                    if (dataReader != null)
-                    {
-
-                        while (dataReader.Read())
-                        {
-                            warnings.Add(new Warning(warningId: dataReader["warningId"].ToString(), dataReader["Message"].ToString(), dataReader["WarningType"].ToString()));
-                        }
-                    }
+                    List<Warning> warnings = _warningDAO.getAll();
+                  
                     return warnings;
                 };
             });

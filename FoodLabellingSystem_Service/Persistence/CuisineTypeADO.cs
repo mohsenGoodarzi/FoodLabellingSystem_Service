@@ -31,13 +31,11 @@ namespace FoodLabellingSystem_Service.Persistence
 
                     while (dataReader.Read())
                     {
-                        string? cuisineTypeId = dataReader["cuisineTypeId"].ToString();
-                        string? member = dataReader["member"].ToString();
-
-                        // database makes sure that nither of them is null.
-                        if (cuisineTypeId != null && member != null)
+                        string cuisineTypeId = dataReader.GetString(0);
+                        string member = dataReader.GetString(1);
                         warnings.Add(new CuisineType(cuisineTypeId, member));
                     }
+                    dataReader.Close();
                 }
                 connection.Close();
             }
@@ -92,7 +90,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == ConnectionState.Open)
                 {
 
-                    SqlCommand sqlCommand = new SqlCommand("delete CuisineType where CuisineTypeId = @cuisineTypeId;", connection);
+                    SqlCommand sqlCommand = new SqlCommand("delete from CuisineType where CuisineTypeId = @cuisineTypeId;", connection);
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@cuisineTypeId", cuisineTypeId);
                    
@@ -171,6 +169,34 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Close();
             }
             return queryResult;
+        }
+
+        public CuisineType GetById(string cuisineTypeId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
+            {
+
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+
+                    SqlCommand command = new SqlCommand("select * from CuisineType where CuisineTypeId=@cuisineTypeId;", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@cuisineTypeId", cuisineTypeId);
+
+
+                    SqlDataReader dataReader = command.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        return new CuisineType(dataReader.GetString(0), dataReader.GetString(1));
+                    }
+                    dataReader.Close();
+
+                }
+                connection.Close();
+            }
+            return new CuisineType();
         }
     }
 }

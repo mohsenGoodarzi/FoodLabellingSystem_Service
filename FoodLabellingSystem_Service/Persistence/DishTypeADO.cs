@@ -30,13 +30,12 @@ namespace FoodLabellingSystem_Service.Persistence
 
                     while (dataReader.Read())
                     {
-                        string? dishTypeId = dataReader["dishTypeId"].ToString();
-                        string? member = dataReader["member"].ToString();
+                        string dishTypeId = dataReader.GetString(0);
+                        string member = dataReader.GetString(0);
 
-                        // database makes sure that nither of them is null.
-                        if (dishTypeId != null && member != null)
                             dishTypes.Add(new DishType(dishTypeId, member));
                     }
+                    dataReader.Close();
                 }
             }
             return dishTypes;
@@ -89,7 +88,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == ConnectionState.Open)
                 {
 
-                    SqlCommand command = new SqlCommand("delete DishType where DishTypeId = @dishTypeId)", connection);
+                    SqlCommand command = new SqlCommand("delete from DishType where DishTypeId = @dishTypeId)", connection);
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@dishTypeId", dishTypeId);
 
@@ -168,6 +167,34 @@ namespace FoodLabellingSystem_Service.Persistence
             }
 
             return queryResult;
+        }
+
+        public DishType GetById(string dishTypeId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
+            {
+
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+
+                    SqlCommand command = new SqlCommand("select * from DishType where DishTypeId=@dishTypeId;", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@dishTypeId", dishTypeId);
+
+
+                    SqlDataReader dataReader = command.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        return new DishType(dataReader.GetString(0), dataReader.GetString(1));
+                    }
+                    dataReader.Close();
+
+                }
+                connection.Close();
+            }
+            return new DishType();
         }
     }
 }

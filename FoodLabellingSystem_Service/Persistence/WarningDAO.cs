@@ -1,4 +1,5 @@
-﻿using FoodLabellingSystem_Service.Other;
+﻿using FoodLabellingSystem_Service.Models;
+using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,22 +16,31 @@ namespace FoodLabellingSystem_Service.Persistence
             _configuration = configuration;
         }
 
-        public SqlDataReader? getAll() {
+        public List<Warning> getAll() {
 
-            SqlDataReader? sqlReader = default ;
+            List<Warning> warnings = new List<Warning>();
+            
             using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb"))) {
+
 
                 connection.Open();
                 if (connection.State == ConnectionState.Open) {
 
                     SqlCommand command = new SqlCommand("select * from Warning", connection);
-                    sqlReader = command.ExecuteReader();       
+                    SqlDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read()) {
+
+                        string warningId = dataReader.GetString(0);
+                        string message = dataReader.GetString(1);
+                        string warningType = dataReader.GetString(2);
+                        warnings.Add(new Warning(warningId, message, warningType));
+                    }
+                dataReader.Close();
                 }
-                
                 connection.Close();
             }
 
-            return sqlReader;
+            return warnings;
 
         }
         public QueryResult Add(string warningId, string message, string warningType) {
@@ -81,7 +91,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == ConnectionState.Open)
                 {
 
-                    SqlCommand command = new SqlCommand("delete warning where WarningId=@warningId;", connection);
+                    SqlCommand command = new SqlCommand("delete from warning where WarningId=@warningId;", connection);
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@warningId", WarningId);
 
@@ -154,6 +164,34 @@ namespace FoodLabellingSystem_Service.Persistence
 
             }
             return result;
+        }
+
+        public Warning getById(string warningId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
+            {
+
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+
+                    SqlCommand command = new SqlCommand("select * from Warning where WarningId=@warningId;", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@warningId", warningId);
+
+
+                    SqlDataReader dataReader = command.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        return new Warning(dataReader.GetString(0), dataReader.GetString(0),dataReader.GetString(2));
+                    }
+                    dataReader.Close();
+
+                }
+                connection.Close();
+            }
+            return new Warning();
         }
     }
 }

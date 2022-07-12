@@ -8,6 +8,7 @@ namespace FoodLabellingSystem_Service.Persistence.Interfaces
     public interface IDishTypeADO
     {
         public List<DishType> GetAll();
+        public DishType GetById(string id);
         public QueryResult Add(string dishTypeId, string member);
         public QueryResult Remove(string dishTypeId);
         public QueryResult Update(string dishTypeId, string member);

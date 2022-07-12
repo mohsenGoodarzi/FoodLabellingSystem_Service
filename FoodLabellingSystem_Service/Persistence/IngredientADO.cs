@@ -100,6 +100,31 @@ namespace FoodLabellingSystem_Service.Persistence
             return ingredients;
         }
 
+        public Ingredient GetById(string ingredientId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
+            {
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+                    SqlCommand command = new SqlCommand("select * from Ingredient where IngredientId=@ingredientId;", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@ingredientId", ingredientId);
+
+
+                    SqlDataReader dataReader = command.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        return new Ingredient(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetDouble(4), dataReader.GetDouble(5), dataReader.GetDouble(6), dataReader.GetDouble(7), dataReader.GetDouble(8), dataReader.GetString(9));
+                    }
+                    dataReader.Close();
+                }
+                connection.Close();
+            }
+            return new Ingredient();
+        }
+
         public QueryResult Remove(string ingredientId)
         {
             QueryResult queryResult = new QueryResult();

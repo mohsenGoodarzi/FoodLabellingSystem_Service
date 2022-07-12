@@ -6,7 +6,9 @@ namespace FoodLabellingSystem_Service.Services
 {
     public interface IUnitService
     {
-        public Task<List<Unit>> GetAll();
+        public List<Unit> Filter(Func<Unit, bool> func);
+        public Task<Units> GetAll();
+        public Task<Unit> GetById(string unitId);
         public Task<QueryResult> Add(Unit unit);
         public Task<QueryResult> Remove(string unitId);
         public Task<QueryResult> Update(Unit unit);
