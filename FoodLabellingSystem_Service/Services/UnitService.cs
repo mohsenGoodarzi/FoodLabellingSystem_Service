@@ -4,6 +4,7 @@ using System.Linq;
 using FoodLabellingSystem_Service.Models;
 using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
+using FoodLabellingSystem_Service.Services.Interfaces;
 
 namespace FoodLabellingSystem_Service.Services
 {

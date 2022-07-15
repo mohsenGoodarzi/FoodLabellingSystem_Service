@@ -1,7 +1,7 @@
 ﻿using FoodLabellingSystem_Service.Models;
 using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
-using FoodLabellingSystem_Service.Services;
+using FoodLabellingSystem_Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodLabellingSystem_Service.Controllers

@@ -63,8 +63,7 @@ namespace FoodLabellingSystem_Service.Persistence
                         }
                     }
                     catch (SqlException e) {
-                        queryResult.ErrorCode = e.ErrorCode;
-                        queryResult.Message = e.Message;
+                        queryResult.Message = " Error Code: " + e.ErrorCode.ToString() + " " + e.Message;
                         queryResult.Result = QueryResultType.FAILED;
 
                     }
@@ -105,8 +104,7 @@ namespace FoodLabellingSystem_Service.Persistence
                     }
                     catch (SqlException e)
                     {
-                        queryResult.ErrorCode = e.ErrorCode;
-                        queryResult.Message = e.Message;
+                        queryResult.Message = " Error Code: " + e.ErrorCode.ToString() + " " + e.Message;
                         queryResult.Result = QueryResultType.FAILED;
 
                     }
@@ -147,8 +145,7 @@ namespace FoodLabellingSystem_Service.Persistence
                     }
                     catch (SqlException e)
                     {
-                        queryResult.ErrorCode = e.ErrorCode;
-                        queryResult.Message = e.Message;
+                        queryResult.Message = " Error Code: " + e.ErrorCode.ToString() + " " + e.Message;
                         queryResult.Result = QueryResultType.FAILED;
 
                     }

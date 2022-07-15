@@ -28,6 +28,21 @@ namespace FoodLabellingSystem_Service.Models
             Member = member;
 
         }
+        public override bool Equals(object? obj)
+        {
+           
+            DishType? other = obj as DishType;
+                if (other != null) {
+                if (other.DishTypeId == DishTypeId && other.Member == Member) { 
+                return true;
+                }
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return System.HashCode.Combine(DishTypeId, Member);
+        }
     }
 }
 

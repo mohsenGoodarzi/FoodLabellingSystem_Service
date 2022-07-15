@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using FoodLabellingSystem_Service.Models;
 using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
+using FoodLabellingSystem_Service.Services.Interfaces;
 
 namespace FoodLabellingSystem_Service.Services
 {
@@ -16,27 +17,42 @@ namespace FoodLabellingSystem_Service.Services
             this.ingredientTypeDAO = ingredientTypeDAO;
         }
 
-        public QueryResult Add(IngredientType ingredientType)
+        public Task<QueryResult> Add(IngredientType ingredientType)
         {
-            return ingredientTypeDAO.Add(ingredientType.IngredientTypeId, ingredientType.Member);
+            return Task.Run(() => {
+               return ingredientTypeDAO.Add(ingredientType.IngredientTypeId, ingredientType.Member);
+            });
+            
         }
 
-        public List<IngredientType> GetAll()
+        public Task<List<IngredientType>> GetAll()
         {
-            List<IngredientType> ingredientTypes = ingredientTypeDAO.GetAll();
-            return ingredientTypes;
+            return Task.Run(() => {
+                List<IngredientType> ingredientTypes = ingredientTypeDAO.GetAll();
+                return ingredientTypes;
+            });
+            
         }
-
-       public QueryResult Remove(string ingredientTypeId)
+        public Task<IngredientType> GetById(string ingredientTypeId)
         {
-            return ingredientTypeDAO.Remove(ingredientTypeId);
+            return Task.Run(() => {
+            
+            return ingredientTypeDAO.GetById(ingredientTypeId);
+            });
         }
-
-
-        public QueryResult Update(IngredientType ingredientType)
+        public Task<QueryResult> Remove(string ingredientTypeId)
         {
+            return Task.Run(() => {
+                return ingredientTypeDAO.Remove(ingredientTypeId);
+            });
+            }
+
+
+        public Task<QueryResult> Update(IngredientType ingredientType)
+        {
+            return Task.Run(() => { 
             return ingredientTypeDAO.Update(ingredientType.IngredientTypeId, ingredientType.Member);
-        }
+            }); }
 
         
     }

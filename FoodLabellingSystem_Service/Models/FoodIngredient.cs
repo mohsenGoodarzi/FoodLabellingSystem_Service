@@ -7,9 +7,7 @@ namespace FoodLabellingSystem_Service.Models
     [Table("Food_Ingredient")]
     public class FoodIngredient
     {
-        [Key]
-        [Column("id")]
-        public int Id { get; set; }
+       
 
         [Required]
         [Display(Name = "Food Name")]
@@ -33,32 +31,35 @@ namespace FoodLabellingSystem_Service.Models
         public double Amount { get; set; }
 
         [Column("fat")]
-        public double? Fat { get; set; }
+        public double Fat { get; set; }
 
         [Column("carbs")]
-        public double? Carbs { get; set; }
+        public double Carbs { get; set; }
 
         [Column("protein")]
-        public double? Protein { get; set; }
+        public double Protein { get; set; }
 
         [Column("calory")]
-        public double? Calory { get; set; }
+        public double Calory { get; set; }
 
         public FoodIngredient()
         {
-            Id = 0;
             FoodId = string.Empty;
             IngredientId = string.Empty;
             UnitId = string.Empty;
             Amount = 0.0;
         }
-        public FoodIngredient(int id, string foodId, string ingredientId, string unitId, double amount)
+        public FoodIngredient(string foodId, string ingredientId, string unitId, double amount, double fat, double carbs, double protein, double calory )
         {
-            Id = id;
+            
             FoodId = foodId;
             IngredientId = ingredientId;
             UnitId = unitId;
             Amount = amount;
+            Fat = fat;
+            Carbs = carbs;
+            Protein = protein;
+            Calory = calory;
         }
     }
 }
