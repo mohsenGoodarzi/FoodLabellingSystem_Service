@@ -5,7 +5,7 @@ namespace FoodLabellingSystem_Service.Services.Interfaces
 {
     public interface IWarningService
     {
-        public Task<List<Warning>> GetAll();
+        public Task<Warnings> GetAll();
         public Task<Warning> GetById(string warningId);
         public Task<QueryResult> Add(Warning warning);
         public Task<QueryResult> Remove(string warningId);

@@ -7,7 +7,7 @@ using FoodLabellingSystem_Service.Services.Interfaces;
 
 namespace FoodLabellingSystem_Service.Services
 {
-    public class IngredientTypeService:IIngredientTypeService
+    public class IngredientTypeService: Interfaces.IIngredientTypeService
     {
       
         private readonly IIngredientTypeDAO ingredientTypeDAO;
@@ -25,10 +25,11 @@ namespace FoodLabellingSystem_Service.Services
             
         }
 
-        public Task<List<IngredientType>> GetAll()
+        public Task<IngredientTypes> GetAll()
         {
             return Task.Run(() => {
-                List<IngredientType> ingredientTypes = ingredientTypeDAO.GetAll();
+                IngredientTypes ingredientTypes = new IngredientTypes();
+                ingredientTypes.AllIngredientTypes = ingredientTypeDAO.GetAll();
                 return ingredientTypes;
             });
             

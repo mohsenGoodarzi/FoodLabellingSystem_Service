@@ -30,7 +30,7 @@ namespace FoodLabellingSystem_Service.Persistence
                     while (dataReader.Read())
                     {
                         string dishTypeId = dataReader.GetString(0);
-                        string member = dataReader.GetString(0);
+                        string member = dataReader.GetString(1);
 
                             dishTypes.Add(new DishType(dishTypeId, member));
                     }
@@ -86,7 +86,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == ConnectionState.Open)
                 {
 
-                    SqlCommand command = new SqlCommand("delete from DishType where DishTypeId = @dishTypeId)", connection);
+                    SqlCommand command = new SqlCommand("delete from DishType where DishTypeId = @dishTypeId;", connection);
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@dishTypeId", dishTypeId);
 
@@ -131,7 +131,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == ConnectionState.Open)
                 {
 
-                    SqlCommand command = new SqlCommand("update DishType set Member = @member where DishTypeId = @dishTypeId)", connection);
+                    SqlCommand command = new SqlCommand("update DishType set Member = @member where DishTypeId = @dishTypeId;", connection);
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@dishTypeId", dishTypeId);
                     command.Parameters.AddWithValue("@member", member);

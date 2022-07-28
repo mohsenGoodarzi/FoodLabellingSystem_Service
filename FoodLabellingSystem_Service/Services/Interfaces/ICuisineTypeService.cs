@@ -5,7 +5,7 @@ namespace FoodLabellingSystem_Service.Services.Interfaces
 {
     public interface ICuisineTypeService
     {
-        public Task<List<CuisineType>> GetAll();
+        public Task<CuisineTypes> GetAll();
         public Task<CuisineType> GetById(string cuisineTypeId);
         public Task<QueryResult> Add(CuisineType cuisineType);
         public Task<QueryResult> Update(CuisineType cuisineType);

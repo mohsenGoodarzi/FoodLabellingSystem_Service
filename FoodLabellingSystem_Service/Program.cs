@@ -3,6 +3,10 @@ using FoodLabellingSystem_Service.Persistence.Interfaces;
 using FoodLabellingSystem_Service.Services;
 using FoodLabellingSystem_Service.Controllers;
 using FoodLabellingSystem_Service.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+using FoodLabellingSystem_Service.Other;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +29,11 @@ builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<IWarningService, WarningService>();
 
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 
+
+
+// Add services to the container.
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();

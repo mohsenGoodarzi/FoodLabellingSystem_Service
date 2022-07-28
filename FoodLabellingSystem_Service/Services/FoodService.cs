@@ -13,11 +13,11 @@ namespace FoodLabellingSystem_Service.Services
         
             _foodDAO = foodDAO;
         }
-        public Task<List<Food>> GeAll()
+        public Task<Foods> GetAll()
         {
-
-            return Task.Run(() => { 
-            List<Food> foods = _foodDAO.GetAll();
+            return Task.Run(() => {
+                Foods foods = new Foods();
+                foods.AllFoods =_foodDAO.GetAll();
                 return foods; 
             });
          }

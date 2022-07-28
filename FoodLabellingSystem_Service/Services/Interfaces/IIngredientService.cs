@@ -5,7 +5,7 @@ namespace FoodLabellingSystem_Service.Services.Interfaces
 {
     public interface IIngredientService
     {
-        public Task<List<Ingredient>> GetAll();
+        public Task<Ingredients> GetAll();
         public Task<Ingredient> GetById(string ingredientId);
         public Task<QueryResult> Add(Ingredient ingredient);
         public Task<QueryResult> Remove(string ingredientId);

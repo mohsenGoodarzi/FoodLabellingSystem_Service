@@ -1,0 +1,47 @@
+﻿@model IEnumerable<FoodLabellingSystem_Service.Models.Warning>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WarningId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WarningType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarningId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarningType)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  warningId = item.WarningId}) |
+                @Html.ActionLink("Details", "Details", new {  warningId = item.WarningId }) |
+                @Html.ActionLink("Remove", "Remove", new {  warningId = item.WarningId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

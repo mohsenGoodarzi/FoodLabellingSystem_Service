@@ -5,7 +5,7 @@ namespace FoodLabellingSystem_Service.Services.Interfaces
 {
     public interface IFoodService
     {
-        public Task<List<Food>> GeAll();
+        public Task<Foods> GetAll();
         public Task<Food> GetById(string foodId);
         public Task<QueryResult> Add(Food food);
         public Task<QueryResult> Update(Food food);

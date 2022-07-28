@@ -16,12 +16,12 @@ namespace FoodLabellingSystem_Service.Services
             _warningDAO = warningDAO;
         }
 
-        public Task<List<Warning>> GetAll() {
+        public Task<Warnings> GetAll() {
 
           return Task.Run(()=>{
                 {
-                    List<Warning> warnings = _warningDAO.getAll();
-                  
+                  Warnings warnings = new Warnings();
+                  warnings.AllWarnings = _warningDAO.getAll();
                     return warnings;
                 };
             });

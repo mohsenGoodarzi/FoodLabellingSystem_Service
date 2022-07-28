@@ -33,10 +33,11 @@ namespace FoodLabellingSystem_Service.Services
             });
         }
 
-        public Task<List<DishType>> GeAll()
+        public Task<DishTypes> GeAll()
         {
             return Task.Run(() => {
-                List<DishType> dishTypes = _dishTypeDAO.GetAll();
+                DishTypes dishTypes = new DishTypes();
+                dishTypes.AllDishTypes = _dishTypeDAO.GetAll();
                 return dishTypes;
             });
         }

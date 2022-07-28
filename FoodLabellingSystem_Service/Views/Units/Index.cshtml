@@ -1,0 +1,37 @@
+﻿@model IEnumerable<FoodLabellingSystem_Service.Models.Unit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Unit</th>
+            <th>To Gram</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               @item.UnitId
+            </td>
+            <td>
+               @item.ToGram
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { unitId  = item.UnitId}) |
+                @Html.ActionLink("Details", "Details", new { unitId  = item.UnitId}) |
+                @Html.ActionLink("Delete", "Delete", new { unitId  = item.UnitId})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

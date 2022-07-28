@@ -47,10 +47,10 @@ namespace FoodLabellingSystem_Service.Models
             return System.HashCode.Combine(UnitId, ToGram);
         }
 
-        public static bool operator==(Unit a, Unit b)
+        public static bool operator==(Unit? a, Unit? b)
         {
             
-            return (a.UnitId == b.UnitId && a.ToGram == b.ToGram);
+            return (a?.UnitId == b?.UnitId && a?.ToGram == b?.ToGram);
         }
 
         public static bool operator!=(Unit a, Unit b)

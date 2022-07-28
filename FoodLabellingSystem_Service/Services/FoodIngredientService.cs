@@ -34,17 +34,19 @@ namespace FoodLabellingSystem_Service.Services
             });
         }
 
-        public Task<List<FoodIngredient>> GeAll()
+        public Task<FoodIngredients> GetAll()
         {
             return Task.Run(() => {
-                return _foodIngredientDAO.GetAll();
+                FoodIngredients foodIngredients = new FoodIngredients();
+                foodIngredients.AllFoodIngredients = _foodIngredientDAO.GetAll();
+                return foodIngredients;
             });
         }
 
-        public Task<FoodIngredient> GetById(string foodIngredientId,string ingredientId)
+        public Task<FoodIngredient> GetById(string foodId,string ingredientId)
         {
             return Task.Run(() => { 
-            return _foodIngredientDAO.GetById(foodIngredientId, ingredientId);
+            return _foodIngredientDAO.GetById(foodId, ingredientId);
             });
         }
 

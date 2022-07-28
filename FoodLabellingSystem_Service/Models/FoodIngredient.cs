@@ -7,14 +7,15 @@ namespace FoodLabellingSystem_Service.Models
     [Table("Food_Ingredient")]
     public class FoodIngredient
     {
-       
 
+        [Key]
         [Required]
         [Display(Name = "Food Name")]
         [Column("foodId")]
         [StringLength(100)]
         public string FoodId { get; set; }
 
+        [Key]
         [Required]
         [Display(Name = "Ingredient Name")]
         [Column("ingredientId")]

@@ -180,6 +180,8 @@ namespace FoodLabellingSystem_Service.Persistence
             }
             return new IngredientType();
         }
+
+       
     }
 }
 

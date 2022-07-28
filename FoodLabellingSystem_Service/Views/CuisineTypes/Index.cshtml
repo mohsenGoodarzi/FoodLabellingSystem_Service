@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FoodLabellingSystem_Service.Models.CuisineType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a  asp-controller="CuisineTypes" asp-action="Create" >Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CuisineTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CuisineTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { cuisineTypeId  = item.CuisineTypeId}) |
+                @Html.ActionLink("Details", "Details", new { cuisineTypeId  = item.CuisineTypeId}) |
+                @Html.ActionLink("Remove", "Remove", new { cuisineTypeId  = item.CuisineTypeId})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

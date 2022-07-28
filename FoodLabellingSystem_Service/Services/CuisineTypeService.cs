@@ -13,10 +13,11 @@ namespace FoodLabellingSystem_Service.Services
         _cuisineTypeDAO = cuisineTypeDAO;   
         }
 
-        public Task<List<CuisineType>> GetAll() {
+        public Task<CuisineTypes> GetAll() {
             return Task.Run(() => { 
-            List<CuisineType> cusineTypes = _cuisineTypeDAO.GetAll();
-                return cusineTypes;
+                 CuisineTypes cuisineTypes = new CuisineTypes();
+                cuisineTypes.AllCuisineTypes = _cuisineTypeDAO.GetAll();
+                return cuisineTypes;
             });
         }
         public Task<CuisineType> GetById(string cuisineTypeId) {
@@ -29,7 +30,7 @@ namespace FoodLabellingSystem_Service.Services
         public Task<QueryResult> Add(CuisineType cuisineType) {
             QueryResult queryResult = new QueryResult();
             return Task.Run(() => {
-                _cuisineTypeDAO.Add(cuisineType.CuisineTypeId,cuisineType.Member);
+                queryResult = _cuisineTypeDAO.Add(cuisineType.CuisineTypeId,cuisineType.Member);
                 return queryResult;
             });
 
@@ -38,7 +39,7 @@ namespace FoodLabellingSystem_Service.Services
         public Task<QueryResult> Update(CuisineType cuisineType) {
             QueryResult queryResult = new QueryResult();
             return Task.Run(() => {
-                _cuisineTypeDAO.Update(cuisineType.CuisineTypeId, cuisineType.Member);
+                queryResult = _cuisineTypeDAO.Update(cuisineType.CuisineTypeId, cuisineType.Member);
                 return queryResult;
             });
         }
@@ -46,7 +47,7 @@ namespace FoodLabellingSystem_Service.Services
         {
             QueryResult queryResult = new QueryResult();
             return Task.Run(() => {
-                _cuisineTypeDAO.Remove(cuisineTypeId);
+                queryResult = _cuisineTypeDAO.Remove(cuisineTypeId);
                 return queryResult;
             });
         }

@@ -20,10 +20,12 @@ namespace FoodLabellingSystem_Service.Services
             });
         }
 
-        public Task<List<Ingredient>> GetAll()
+        public Task<Ingredients> GetAll()
         {
-            return Task.Run(() => { 
-            return _ingredientDAO.GetAll();
+            return Task.Run(() => {
+                Ingredients ingredients = new Ingredients();
+                ingredients.AllIngredients = _ingredientDAO.GetAll();
+                return ingredients;
             });
         }
 

@@ -131,7 +131,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Open();
                 if (connection.State == ConnectionState.Open)
                 {
-                    SqlCommand command = new SqlCommand("update warning Message = @message,WarningType = @warningType where WarningId = @warningId", connection);
+                    SqlCommand command = new SqlCommand("update warning set Message = @message,WarningType = @warningType where WarningId = @warningId", connection);
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@warningId", warningId);
                     command.Parameters.AddWithValue("@message", message);
@@ -181,7 +181,7 @@ namespace FoodLabellingSystem_Service.Persistence
 
                     if (dataReader.Read())
                     {
-                        return new Warning(dataReader.GetString(0), dataReader.GetString(0),dataReader.GetString(2));
+                        return new Warning(dataReader.GetString(0), dataReader.GetString(1),dataReader.GetString(2));
                     }
                     dataReader.Close();
 
