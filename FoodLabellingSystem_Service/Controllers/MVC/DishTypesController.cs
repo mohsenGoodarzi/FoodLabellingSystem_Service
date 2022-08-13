@@ -15,7 +15,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             _dishTypeService = dishTypeService;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("Index")]
         // GET: DishTypeController
         public async Task<ActionResult> Index()
         {
@@ -23,7 +23,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             return View(dishTypes.AllDishTypes);
         }
 
-        [HttpGet("Get/{dishTypeId}")]
+        [HttpGet("Details/{dishTypeId}")]
         // GET: DishTypeController/Details/5
         public async Task<ActionResult> Details(string dishTypeId)
         {
@@ -52,7 +52,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
                QueryResult queryResult = await _dishTypeService.Add(dishType);
                 if (queryResult.Result == QueryResultType.SUCCEED)
                 {
-                    return RedirectToAction("GetAll");
+                    return RedirectToAction("Index");
                 }
                 else {
                     return View("Error", new ErrorViewModel() { QureyResult = queryResult });
@@ -84,7 +84,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
                 QueryResult queryResult = await _dishTypeService.Update(dishType);
                 if (queryResult.Result == QueryResultType.SUCCEED)
                 {
-                    return RedirectToAction("GetAll");
+                    return RedirectToAction("Index");
                 }
                 else {
                 
@@ -96,7 +96,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             
         }
 
-        [HttpGet("Remove/{dishTypeId}")]
+        [HttpGet("Delete/{dishTypeId}")]
         // GET: DishTypeController/Delete/5
         public async Task<ActionResult> Delete(string dishTypeId)
         {
@@ -109,14 +109,14 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
         // POST: DishTypeController/Delete/5
-        [HttpPost("Remove/{dishTypeId}")]
+        [HttpPost("Delete/{dishTypeId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmation(string dishTypeId)
+        public async Task<ActionResult> DeleteConfirmed(string dishTypeId)
         {
            QueryResult queryResult = await _dishTypeService.Delete(dishTypeId);
             if (queryResult.Result == QueryResultType.SUCCEED)
             {
-                return RedirectToAction("GetAll");
+                return RedirectToAction("Index");
             }
             return View("Error",new ErrorViewModel() {QureyResult = queryResult});
         }

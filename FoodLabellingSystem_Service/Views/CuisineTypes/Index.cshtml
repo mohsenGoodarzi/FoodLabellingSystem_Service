@@ -1,41 +1,42 @@
 ﻿@model IEnumerable<FoodLabellingSystem_Service.Models.CuisineType>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<link href="~/css/CuisineType_Phone_View.css" rel="stylesheet" media="screen and (min-width: 1px) and (max-width: 660px)" />
+<link href="~/css/CuisineType_Tablet_View.css" rel="stylesheet" media="screen and (min-width: 661px) and (max-width: 800px)" />
+<div class="container push-down box-shadow ">
+    <h1>List of Cuisines</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CuisineTypeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Member)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CuisineTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Member)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.CuisineTypeId" class="m-1 float-right">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.CuisineTypeId" class="m-1 float-right">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.CuisineTypeId" class="m-1 float-right">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-primary ">Create New</a>
+    </div>
+</div>
 
-<h1>Index</h1>
-
-<p>
-    <a  asp-controller="CuisineTypes" asp-action="Create" >Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CuisineTypeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Member)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CuisineTypeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { cuisineTypeId  = item.CuisineTypeId}) |
-                @Html.ActionLink("Details", "Details", new { cuisineTypeId  = item.CuisineTypeId}) |
-                @Html.ActionLink("Remove", "Remove", new { cuisineTypeId  = item.CuisineTypeId})
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

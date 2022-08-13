@@ -2,6 +2,6 @@
 {
     public enum StatusType
     {
-        Suspended, Registered, Activated, Closed, Await_Email_Confirmation, Await_Phone_Confimation
+        Suspended, Activated, Closed
     }
 }

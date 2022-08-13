@@ -1,0 +1,139 @@
+﻿@model IEnumerable<FoodLabellingSystem_Service.Models.Food>
+@{
+    
+    var foodsList = ViewBag.Warnings;
+    var rs = (IEnumerable<FoodsList>)foodsList;
+}
+<link href="~/css/Food_Phone_View.css" rel="stylesheet" media="screen and (min-width: 1px) and (max-width: 660px)" />
+<link href="~/css/Food_Tablet_view.css" rel="stylesheet" media="screen and (min-width: 661px) and (max-width: 900px)" />
+<div class="container-fluid big-box push-down box-shadow">
+    <h1>List of foods</h1>
+    <div class="row d-flex justify-content-start" id="filter-section">
+        <div class="input-group mb-3  col-md-6">
+            <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+            <select class="form-select select form-control" id="select-box" aria-label="Default select example">
+                <option value="0" selected>Choose...</option>
+                <option value="1">Food Name</option>
+                <option value="2">Description</option>
+                <option value="3">Food type</option>
+                <option value="4">Cuisine Type</option>
+                <option value="5">Dish Type</option>
+                <option value="6">Warnings</option>
+            </select>
+        </div>
+        <div class="input-group mb-3 col-md-6">
+            <input id="search-box" type="text" class="form-control" placeholder="Select a filter from select box." data-target="#messageBox" message="hello" aria-describedby="button-addon">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon">Add</button>
+        </div>
+        <div class="row d-flex mb-3 ml-3" id="criteria-box">
+
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.FoodId)
+                    </th>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.FoodType)
+                    </th>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.CuisineType)
+                    </th>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.DishType)
+                    </th>
+                    <th data-target="string">
+                        Warning
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var warned = @rs.Where(food => food.FoodId == item.FoodId).Select(food => food.FoodId);
+                    <tr>
+                        <td>
+                            @{
+                                if (warned.FirstOrDefault() != item.FoodId)
+                                {
+                                    <a href="/FoodIngredients/index?foodId=@item.FoodId">@Html.DisplayFor(modelItem => item.FoodId)</a>
+                                }
+                                else
+                                {
+                                    <a href="/FoodIngredients/index?foodId=@item.FoodId" style="color:red;"> @Html.DisplayFor(modelItem => item.FoodId)</a>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FoodType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CuisineType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DishType)
+                        </td>
+                        <td>
+                            @foreach (var i in ViewBag.Warnings)
+                            {
+                                if (i.FoodId == item.FoodId && i.WarningType == "Allergic")
+                                {
+                                    <a href="#" class="btn btn-danger mb-1" warningid="@i.WarningId" data-toggle="modal" data-target="#messageBox" message="@i.Message"> @i.WarningType to @i.WarningId</a>
+                                }
+                                else if (i.FoodId == item.FoodId && i.WarningType == "Children Attention")
+                                {
+                                    <a href="#" class="btn btn-warning mb-1" warningid="@i.WarningId" data-toggle="modal" data-target="#messageBox" message="@i.Message"> @i.WarningType to @i.WarningId</a>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.FoodId" class="m-1 float-right">Delete</a>
+                            <a asp-action="Details" asp-route-id="@item.FoodId" class="m-1 float-right">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.FoodId" class="m-1 float-right">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-primary float-right">Create New</a>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="messageBoxLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageBoxLabel">Warning Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>var allLinks = document.querySelectorAll("a[data-toggle='modal']");
+    allLinks.forEach(item => {
+        item.addEventListener("click", event => {
+            let modalBody = document.getElementsByClassName("modal-body")[0];
+            modalBody.innerHTML = item.getAttribute("message");
+
+        });
+    });</script>
+
+<script type="module" src="~/js/FoodIndex.js"></script>

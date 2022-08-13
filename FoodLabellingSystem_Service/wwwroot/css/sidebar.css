@@ -1,0 +1,197 @@
+
+a{
+ text-decoration: none;
+
+}
+li{
+ list-style: none;
+}
+
+.brand{
+ display: inline-block;
+ padding: 10px;
+position: absolute;
+text-shadow:  0 0 15px #022175da;
+
+}
+.brand >a{
+ color:  #ffffff7c;
+}
+
+
+
+.hide{
+    display: none !important;
+}
+
+.bars {
+    padding: 10px;
+    display: inline-block;
+    font-size: 25px !important;
+    color: rgba(255, 255, 255, 0.651);
+    top: 0px;
+}
+    
+    .bars:hover {
+       cursor:pointer;
+    
+        }
+
+
+.sidebar{
+     position: fixed;
+     /* assigns the window height to the height*/
+     height: 100vh;
+     width: 100vw;
+     max-width: 320px;
+     min-width: 250px;
+ display: block;
+ background-color: rgb(255, 250, 243);
+box-shadow:  0 0 10px #414141c4;
+border-radius: 0 25px 25px 0;
+z-index:10000;
+ }
+.sidebar-header {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    border-radius: 0 25px 0 0;
+    background-color: rgb(255, 237, 187);
+    box-shadow: 0 0 3px #000000da;
+}
+.sidebar-title {
+    display: block;
+    width: 100%;
+    margin: 15px 0 15px 5px !important;
+    line-height: 21px;
+    color: rgb(18, 3, 54);
+    vertical-align: middle;
+}
+    .sidebar-title > a {
+        color:blue !important;
+    }
+ul:has( > li.sidebar-close) {
+
+}
+    .sidebar-close {
+        display: block;
+       
+        line-height: 21px;
+        margin: 15px 15px 15px 15px;
+        border-radius: 50px;
+        font-size: 33px;
+        vertical-align:middle;
+     
+    }
+        .sidebar-close:hover {
+        cursor:pointer;
+        }
+        .push-right {
+            float: right;
+        }
+ul {
+    padding:0;
+}
+ .sidebar-item > a{
+  color:blue;
+     padding-top: 15px;
+     padding-bottom: 15px;
+     display: block;
+     text-align: center;
+ }
+    .sidebar-item > a:hover {
+    color:white;
+    }
+    .sidebar-item > a:hover {
+        background-color: rgb(242, 242, 242);
+        color:#000000;
+        box-shadow: 0 0 2px #00000099;
+    }
+
+ .sidebar-item{
+     max-width: 100%;
+     display:block;
+ }
+    .sidebar-item > form {
+        text-align: center;
+        text-decoration: none;
+    }
+
+        .sidebar-item > form >.btn-link {
+            margin-top: 20px;
+            text-decoration: none;
+            color: blue;
+            box-shadow: 0 0 2px #00000099;
+        }
+
+    .btn-link:hover {
+        text-decoration: none;
+        background-color: rgb(242, 242, 242);
+        color: #000000;
+    }
+.sub-menu {
+    display: block;
+    background-color: rgb(235, 228, 221);
+}
+
+
+
+ /* animation part*/
+@keyframes slideInLeft {
+ 0% {
+ -webkit-transform: translateX(-100%);
+ transform: translateX(-100%)
+}
+100% {
+ -webkit-transform: translateX(0);
+ transform: translateX(0)
+}
+}
+
+@keyframes slideOutLeft {
+ 0% {
+ -webkit-transform: translateX(0);
+ transform: translateX(0)
+}
+
+100%{
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%); 
+}
+}
+@keyframes slideInUp {
+ 0% {
+ -webkit-transform: translateY(-100%);
+ transform: translateY(-100%)
+}
+100% {
+ -webkit-transform: translateY(0);
+ transform: translateY(0)
+}
+}
+@keyframes slideOutUp {
+ 0% {
+ -webkit-transform: translateY(0);
+ transform: translateY(0)
+}
+100% {
+
+ -webkit-transform: translateY(-100%);
+ transform: translateY(-100%);
+}
+
+}
+.slideInUp{
+ animation: slideInUp 0.6s ease-in 0s;
+}
+.slideOutUp{
+ animation: slideOutUp 0.6s ease-out 0s;
+}
+ .slideOutLeft{
+ animation: slideOutLeft 0.6s ease-out 0s;
+
+}
+.slideInLeft{
+ animation: slideInLeft 0.6s ease-in 0s;
+}
+

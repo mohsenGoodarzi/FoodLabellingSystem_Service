@@ -1,37 +1,44 @@
 ﻿@model IEnumerable<FoodLabellingSystem_Service.Models.Unit>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<link href="~/css/Unit_Phone_View.css" rel="stylesheet" media="screen and (min-width: 1px) and (max-width: 660px)" />
+<link href="~/css/Unit_Tablet_View.css" rel="stylesheet" media="screen and (min-width: 661px) and (max-width: 800px)" />
+<div class="container push-down box-shadow">
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Unit</th>
-            <th>To Gram</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-               @item.UnitId
-            </td>
-            <td>
-               @item.ToGram
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { unitId  = item.UnitId}) |
-                @Html.ActionLink("Details", "Details", new { unitId  = item.UnitId}) |
-                @Html.ActionLink("Delete", "Delete", new { unitId  = item.UnitId})
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <h1>List of units</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToGram)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToGram)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.UnitId" class=" m-1 float-right">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.UnitId" class="m-1 float-right">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.UnitId" class="m-1 float-right">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-primary ">Add Unit</a>
+    </div>
+</div>

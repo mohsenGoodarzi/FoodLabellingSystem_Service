@@ -30,20 +30,20 @@ namespace FoodLabellingSystem_Service.Services
             }); 
        }
 
-        public Task<QueryResult> Add(Food food)
+        public Task<QueryResult> Add(Food food, string userName)
         {
            QueryResult result = new QueryResult();
             return Task.Run(() => {
-                result = _foodDAO.Add(food.FoodId, food.Description, food.DishType, food.CuisineType, food.FoodType);
+                result = _foodDAO.Add(food.FoodId, food.Description, food.DishType, food.CuisineType, food.FoodType, userName);
                 return result;
             });
         }
 
-        public Task<QueryResult> Update(Food food)
+        public Task<QueryResult> Update(Food food,string userName)
         {
             QueryResult result = new QueryResult();
             return Task.Run(() => {
-                result = _foodDAO.Update(food.FoodId, food.Description, food.DishType, food.CuisineType, food.FoodType);
+                result = _foodDAO.Update(food.FoodId, food.Description, food.DishType, food.CuisineType, food.FoodType, userName);
                 return result;
             });
         }

@@ -2,6 +2,7 @@
 using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace FoodLabellingSystem_Service.Controllers.MVC
@@ -16,7 +17,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         
         }
         
-        [HttpGet("GetAll")]
+        [HttpGet("Index")]
         public async Task<ActionResult> Index()
         {
             Warnings warnings =  await _warningService.GetAll();
@@ -27,14 +28,17 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         public async Task<ActionResult> Details(string warningId)
         {
             Warning warning = await _warningService.GetById(warningId);
-            if (warning == null) { 
-            return NotFound("The warning you are looking for does not exist.");
+            if (warning == null)
+            {
+                return NotFound("The warning you are looking for does not exist.");
             }
            return View(warning);
         }
         [HttpGet("Create")]
         public ActionResult Create()
         {
+                string[] WarningTypes = new string[] { "Allergic", "Children Attention", "Not Specified" };
+                ViewData["WarningType"] =  new SelectList(WarningTypes, "Not Specified");
             return View();
         }
 
@@ -47,10 +51,10 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
                 QueryResult result = await _warningService.Add(warning);
                 if (result.Result == QueryResultType.SUCCEED)
                 {
-                    return RedirectToAction("GetAll", "/Warning");
+                    return RedirectToAction("Index");
                 }
                 else {
-                    return View("Error",new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, QureyResult = result });
+                    return View("Error",new ErrorViewModel {  QureyResult = result });
                 }
             }
 
@@ -65,6 +69,8 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             {
                 return NotFound();
             }
+            string[] WarningTypes = new string[] { "Allergic", "Children Attention", "Not Specified" };
+            ViewData["WarningType"] = new SelectList(WarningTypes, "Not Specified");
             return View(warning);
         }
 
@@ -78,10 +84,10 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
                 if (result.Result == QueryResultType.SUCCEED)
                 {
 
-                    return RedirectToAction("GetAll", "/Warning");
+                    return RedirectToAction("Index");
                 }
                 else { 
-                return View("Error",new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, QureyResult = result });
+                return View("Error",new ErrorViewModel { QureyResult = result });
                 
                 }
                 
@@ -90,8 +96,8 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             return View();
         }
 
-        [HttpGet("Remove/{warningId}")]
-        public async Task<ActionResult> Remove(string warningId)
+        [HttpGet("Delete/{warningId}")]
+        public async Task<ActionResult> Delete(string warningId)
         {
             Warning warning = await _warningService.GetById(warningId);
             if (warning == null) { 
@@ -101,19 +107,19 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
         // POST: WarningController/Delete/5
-        [HttpPost("Remove/{warningId}")]
+        [HttpPost("Delete/{warningId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemoveConfirmed(string warningId)
+        public async Task<ActionResult> DeleteConfirmed(string warningId)
         {
             QueryResult result = await _warningService.Remove(warningId);
 
             if (result.Result == QueryResultType.SUCCEED)
             {
 
-                return RedirectToAction("GetAll", "/Warning");
+                return RedirectToAction("Index");
             }
 
-            return View("Error",new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, QureyResult = result });
+            return View("Error",new ErrorViewModel {  QureyResult = result });
         }
     }
 }

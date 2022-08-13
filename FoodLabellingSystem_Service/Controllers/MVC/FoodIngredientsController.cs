@@ -3,6 +3,7 @@ using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FoodLabellingSystem_Service.Controllers.MVC
 {
@@ -10,8 +11,10 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
     public class FoodIngredientsController : Controller
     {
         private readonly IFoodIngredientService _foodIngredientService;
-        public FoodIngredientsController(IFoodIngredientService foodIngredientService ) {
+        private readonly IUnitService _unitService;
+        public FoodIngredientsController(IFoodIngredientService foodIngredientService, IUnitService unitService ) {
             _foodIngredientService = foodIngredientService;
+            _unitService = unitService;
         }
         [HttpGet("Index")]
         public async Task<ActionResult> Index()
@@ -32,12 +35,15 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
        [HttpGet("Create")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            Units units = await _unitService.GetAll();
+            ViewData["Units"] = new SelectList(units.AllUnits, "UnitId", "UnitId","gram");
+
             return View();
         }
 
-        // POST: FoodIngredientController/Create
+       
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(FoodIngredient foodIngredient)
@@ -65,6 +71,8 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
 
                 return NotFound("The food ingredient was not found.");
             }
+            Units units = await _unitService.GetAll();
+            ViewData["Units"] = new SelectList(units.AllUnits, "UnitId", "UnitId");
             return View(foodIngredient);
         }
 
@@ -102,9 +110,9 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: FoodIngredientController/Delete/5
         [HttpPost("Delete/{foodId}/{ingredientId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmation(string foodId, string ingredientId)
+        public async Task<ActionResult> DeleteConfirmed(string foodId, string ingredientId)
         {
-          QueryResult queryResult = await _foodIngredientService.Delete(ingredientId, foodId);
+          QueryResult queryResult = await _foodIngredientService.Delete(foodId, ingredientId);
 
             if (queryResult.Result == QueryResultType.SUCCEED) { 
             return RedirectToAction("Index");

@@ -1,0 +1,96 @@
+﻿@model FoodLabellingSystem_Service.Models.Ingredient
+
+<div class="container push-down box-shadow animate__animated animate__fadeInLeft">
+
+    <h1>Details of @Model.IngredientId</h1>
+        <hr />
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.IngredientId)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.IngredientId)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.Fat)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.Fat)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.Carbs)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.Carbs)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.Protein)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.Protein)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.Calory)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.Calory)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.IngredientTypeId)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.IngredientTypeId)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.UnitId)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.UnitId)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-3">
+                @Html.DisplayNameFor(model => model.WarningId)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-6">
+                @Html.DisplayFor(model => model.WarningId)
+            </dd>
+        </dl>
+         <div class="row justify-content-center">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+            <a asp-action="Index" class="btn btn-outline-secondary">Back </a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-5 col-6">
+            <a asp-action="Edit" asp-route-id="@Model.IngredientId" class="btn btn-outline-primary float-right">Edit</a>
+        </div>
+    </div>
+    </div>
+   

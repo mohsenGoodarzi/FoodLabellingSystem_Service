@@ -11,23 +11,20 @@ namespace FoodLabellingSystem_Service.Persistence
         public FoodIngredientDAO(IConfiguration configuration) { 
         _configuration = configuration;
         }
-        public QueryResult Add(string foodId, string ingredientId, string unitId, double amount, double fat, double carbs, double protein, double calory)
+        public QueryResult Add(string foodId, string ingredientId, string unitId, double amount)
         {
             QueryResult queryResult = new QueryResult();
             using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb"))) { 
             connection.Open();
                 if (connection.State == System.Data.ConnectionState.Open) {
-                    SqlCommand command = new SqlCommand("insert into FoodIngredient "+
-                        "(foodId,ingredientId,unitId,amount,fat,carbs,protein,calory) "+
-                        "values (@foodId,@ingredientId,@unitId,@amount,@fat,@carbs,@protein,@calory)", connection);
+                    SqlCommand command = new SqlCommand("insert into Food_Ingredient "+
+                        "(foodId,ingredientId,unitId,amount) "+
+                        "values (@foodId,@ingredientId,@unitId,@amount)", connection);
                     command.Parameters.AddWithValue("@foodId", foodId);
                     command.Parameters.AddWithValue("@ingredientId", ingredientId);
                     command.Parameters.AddWithValue("@unitId", unitId);
                     command.Parameters.AddWithValue("@amount", amount);
-                    command.Parameters.AddWithValue("@fat", fat);
-                    command.Parameters.AddWithValue("@carbs", carbs);
-                    command.Parameters.AddWithValue("@protein", protein);
-                    command.Parameters.AddWithValue("@calory", calory);
+                  
                     try
                     {
                         int result = command.ExecuteNonQuery();
@@ -58,7 +55,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Open();
                 if (connection.State == System.Data.ConnectionState.Open) { 
                 SqlCommand command = connection.CreateCommand();
-                    command.CommandText = "";
+                    command.CommandText = "select * from Food_Ingredient;";
                     command.CommandType = System.Data.CommandType.Text;
                     SqlDataReader dataReader = command.ExecuteReader();
 
@@ -67,7 +64,7 @@ namespace FoodLabellingSystem_Service.Persistence
                             dataReader.GetString(0), dataReader.GetString(1),
                             dataReader.GetString(2), dataReader.GetDouble(3),
                             dataReader.GetDouble(4), dataReader.GetDouble(5),
-                            dataReader.GetDouble(6), dataReader.GetDouble(3)
+                            dataReader.GetDouble(6), dataReader.GetDouble(7)
                             ));
                     }
                 dataReader.Close();
@@ -86,7 +83,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
                     SqlCommand command = connection.CreateCommand();
-                    command.CommandText = "select * from FoodIngredient where FoodId = @foodId and IngredientId = @ingredientId";
+                    command.CommandText = "select * from Food_Ingredient where FoodId = @foodId and IngredientId = @ingredientId";
                     command.CommandType = System.Data.CommandType.Text;
                     command.Parameters.AddWithValue("@foodId", foodId);
                     command.Parameters.AddWithValue("@ingredientId", ingredientId);
@@ -117,7 +114,7 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Open();
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    SqlCommand command = new SqlCommand("delete from FoodIngredient " +
+                    SqlCommand command = new SqlCommand("delete from Food_Ingredient " +
                         " where FoodId = @foodId and IngredientId = @ingredientId", connection);
                     command.Parameters.AddWithValue("@foodId", foodId);
                     command.Parameters.AddWithValue("@ingredientId", ingredientId);
@@ -149,7 +146,7 @@ namespace FoodLabellingSystem_Service.Persistence
             return queryResult;
         }
 
-        public QueryResult Update(string foodId, string ingredientId, string unitId, double amount, double fat, double carbs, double protein, double calory)
+        public QueryResult Update(string foodId, string ingredientId, string unitId, double amount)
         {
             QueryResult queryResult = new QueryResult();
             using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
@@ -157,19 +154,15 @@ namespace FoodLabellingSystem_Service.Persistence
                 connection.Open();
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    SqlCommand command = new SqlCommand("update set FoodIngredient " +
-                        "UnitId = @unitId, Amount = @amount, Fat = @fat, Carbs = @carbs," + 
-                        " Protein = @protein, Calory = @calory where "+
+                    SqlCommand command = new SqlCommand("update Food_Ingredient set " +
+                        "UnitId = @unitId, Amount = @amount where "+
                         "foodId = @foodId and ingredientId = @ingredientId", connection);
                     
                     command.Parameters.AddWithValue("@foodId", foodId);
                     command.Parameters.AddWithValue("@ingredientId", ingredientId);
                     command.Parameters.AddWithValue("@unitId", unitId);
                     command.Parameters.AddWithValue("@amount", amount);
-                    command.Parameters.AddWithValue("@fat", fat);
-                    command.Parameters.AddWithValue("@carbs", carbs);
-                    command.Parameters.AddWithValue("@protein", protein);
-                    command.Parameters.AddWithValue("@calory", calory);
+                   
                     try
                     {
                         int result = command.ExecuteNonQuery();

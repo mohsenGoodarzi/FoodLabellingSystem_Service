@@ -1,0 +1,168 @@
+﻿@model IEnumerable<FoodLabellingSystem_Service.Models.FoodIngredient>
+
+<link href="~/css/FoodIngredient_Phone_View.css" rel="stylesheet" media="screen and (min-width: 1px) and (max-width: 660px)" />
+<link href="~/css/FoodIngredient_Tablet_View.css" rel="stylesheet" media="screen and (min-width: 661px) and (max-width: 1000px)" />
+<div class="container push-down box-shadow">
+
+    <h1>List of ingredients of @ViewBag.FoodId</h1>
+
+    @{
+        double? sumFat = 0.0;
+        double? sumCarbs = 0.0;
+        double? sumProtein = 0.0;
+        double? sumCalory = 0.0;
+
+    }
+    <table class="table table-striped" id="mainTable">
+        <thead>
+            <tr>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.IngredientId)
+                </th>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.UnitId)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Fat)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Carbs)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Protein)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Calory)
+                </th>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.IngredientId)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IngredientId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitId)
+                    </td>
+                    <td>
+                        @{
+                            var newAmount = string.Format("{0:n2}", item.Amount);
+                        }
+                        @Html.DisplayFor(modelItem => newAmount)
+                    </td>
+                    <td>
+                        @{ var newFat = "";
+                            if (item.Fat.HasValue)
+                            {
+                                newFat = string.Format("{0:n2}", item.Fat);
+                            }
+                            else
+                            {
+                                newFat = "no value";
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => newFat)
+                    </td>
+                    <td>
+                        @{ var newCarbs = "";
+                            if (item.Carbs.HasValue)
+                            {
+                                newCarbs = string.Format("{0:n2}", item.Carbs);
+                            }
+                            else
+                            {
+                                newCarbs = "no value";
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => newCarbs)
+                    </td>
+                    <td>
+                        @{ var newProtein = "";
+                            if (item.Protein.HasValue)
+                            {
+                                newProtein = string.Format("{0:n2}", item.Protein);
+                            }
+                            else
+                            {
+                                newProtein = "no value";
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => newProtein)
+                    </td>
+                    <td>
+                        @{ var newCalory = "";
+                            if (item.Calory.HasValue)
+                            {
+                                newCalory = string.Format("{0:n2}", item.Calory);
+                            }
+                            else
+                            {
+                                newCalory = "no value";
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => newCalory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IngredientId)
+                    </td>
+
+                    <td>
+                        @{
+
+                            Dictionary<string, string> param = new Dictionary<string, string>();
+                            param.Add("foodId", ViewBag.foodId);
+                            param.Add("Id", item.IngredientId.ToString());
+                        }
+                        <a asp-action="Delete" asp-route-id="@item.IngredientId" class="m-1 float-right">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.IngredientId" class="m-1 float-right">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.IngredientId" class="m-1 float-right">Edit</a>
+                    </td>
+                    @{
+                        sumFat += item.Fat;
+                        sumCarbs += item.Carbs;
+                        sumProtein += item.Protein;
+                        sumCalory += item.Calory;
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+
+            <tr>
+                <td><b>Total</b></td>
+                <td></td>
+                <td></td>
+                <td><b>@string.Format("{0:n2}", sumFat) g</b></td>
+                <td><b>@string.Format("{0:n2}", sumCarbs) g</b></td>
+                <td><b>@string.Format("{0:n2}", sumProtein) g</b></td>
+                <td><b>@string.Format("{0:n2}", sumCalory) g</b></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+        </tfoot>
+    </table>
+    @{
+        Dictionary<string, string> foodId = new Dictionary<string, string> { { "foodId", @ViewBag.foodId } };
+    }
+    <div class="row d-flex justify-content-end">
+        <div class="mr-1">
+            <a href="/Foods" class="btn btn-primary">Back</a>
+        </div>
+        <div class="ml-1">
+            <a asp-action="Create" asp-all-route-data="@foodId" class="btn btn-primary">Add Ingredient</a>
+        </div>
+    </div>
+</div>
+<script type="module" src="~/js/FoodIngredientIndex.js"></script>

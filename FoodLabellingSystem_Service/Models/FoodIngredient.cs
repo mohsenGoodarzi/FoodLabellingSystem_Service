@@ -32,16 +32,16 @@ namespace FoodLabellingSystem_Service.Models
         public double Amount { get; set; }
 
         [Column("fat")]
-        public double Fat { get; set; }
+        public double? Fat { get; set; }
 
         [Column("carbs")]
-        public double Carbs { get; set; }
+        public double? Carbs { get; set; }
 
         [Column("protein")]
-        public double Protein { get; set; }
+        public double? Protein { get; set; }
 
         [Column("calory")]
-        public double Calory { get; set; }
+        public double? Calory { get; set; }
 
         public FoodIngredient()
         {

@@ -19,7 +19,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
 
 
         // GET: UnitController
-        [HttpGet("GetAll")]
+        [HttpGet("Index")]
         public async Task<ActionResult> Index()
         {
             Units units = await _unitService.GetAll();
@@ -27,7 +27,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             return View(units.AllUnits);
         }
 
-        [HttpGet("Get/{unitId}")]
+        [HttpGet("Details/{unitId}")]
         // GET: UnitController/Details/5
         public async Task<ActionResult> Details(string unitId)
         {
@@ -88,7 +88,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
                 QueryResult queryResult = await _unitService.Update(unit);
                 if (queryResult.Result == QueryResultType.SUCCEED)
                 {
-                    return RedirectToAction("GetAll");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -112,12 +112,12 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: UnitController/Delete/5
         [HttpPost("Delete/{unitId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmation(string unitId)
+        public async Task<ActionResult> DeleteConfirmed(string unitId)
         {
             QueryResult queryResult = await _unitService.Remove(unitId);
             if (queryResult.Result == QueryResultType.SUCCEED)
             {
-                return RedirectToAction("GetAll");
+                return RedirectToAction("Index");
 
             }
             else {

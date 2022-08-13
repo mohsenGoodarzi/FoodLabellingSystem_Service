@@ -34,14 +34,14 @@ namespace FoodLabellingSystem_Service.Controllers.API
         [HttpPost("Post")]
         public async Task<QueryResult> Post([FromBody] Food food)
         {
-            return await _foodService.Add(food);
+            return await _foodService.Add(food,"mgdana");
         }
 
         // PUT api/<FoodController>/5
         [HttpPut("Put")]
         public async Task<QueryResult> Put([FromBody] Food food)
         {
-            return await _foodService.Update(food);
+            return await _foodService.Update(food, "mgdana");
         }
 
         // DELETE api/<FoodController>/5

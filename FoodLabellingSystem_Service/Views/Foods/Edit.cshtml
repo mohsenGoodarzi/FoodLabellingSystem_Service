@@ -1,0 +1,52 @@
+﻿@model FoodLabellingSystem_Service.Models.Food
+
+<div class="container push-down box-shadow">
+    <h1>Edit @Model.FoodId</h1>
+    <hr />
+    <form asp-action="Edit">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="FoodId" />
+                <div class="form-group">
+                    <label asp-for="FoodId" class="control-label"></label>
+                    <input asp-for="FoodId" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DishType" class="control-label"></label>
+                    <select asp-for="DishType" class="form-control" asp-items="ViewBag.DishType"></select>
+                    <span asp-validation-for="DishType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CuisineType" class="control-label"></label>
+                    <select asp-for="CuisineType" class="form-control" asp-items="ViewBag.CuisineType"></select>
+                    <span asp-validation-for="CuisineType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FoodType" class="control-label"></label>
+                    <select asp-for="FoodType" class="form-control" asp-items="ViewBag.FoodType"></select>
+                    <span asp-validation-for="FoodType" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <a asp-action="Index" class="btn btn-secondary">Back</a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <input type="submit" value="Save" class="btn btn-primary float-right" />
+            </div>
+
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

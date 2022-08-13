@@ -1,47 +1,85 @@
 ﻿@model IEnumerable<FoodLabellingSystem_Service.Models.Warning>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<link href="~/css/Warning_Phone_View.css" rel="stylesheet" media="screen and (min-width: 1px) and (max-width: 660px)" />
+    <link href="~/css/Warning_Tablet_View.css" rel="stylesheet" media="screen and (min-width: 661px) and (max-width: 800px)" />
+    <div class="container push-down box-shadow">
+        <h1>List of warnings</h1>
+        <div class="row d-flex justify-content-start" id="filter-section">
+            <div class="input-group mb-3  col-md-6">
+                <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+                <select class="form-select select form-control" id="select-box" aria-label="Default select example">
+                    <option value="0" selected>Choose...</option>
+                    <option value="1">Name</option>
+                    <option value="2">Message</option>
 
-<h1>Index</h1>
+                </select>
+            </div>
+            <div class="input-group mb-3 col-md-6">
+                <input id="search-box" type="text" class="form-control" placeholder="Select a filter from select box." data-target="#messageBox" message="hello" aria-describedby="button-addon">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon">Add</button>
+            </div>
+            <div class="row d-flex mb-3 ml-3" id="criteria-box">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.WarningId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Message)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WarningType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WarningId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WarningType)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  warningId = item.WarningId}) |
-                @Html.ActionLink("Details", "Details", new {  warningId = item.WarningId }) |
-                @Html.ActionLink("Remove", "Remove", new {  warningId = item.WarningId })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.WarningId)
+                    </th>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.Message)
+                    </th>
+                    <th data-target="string">
+                        @Html.DisplayNameFor(model => model.WarningType)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WarningId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WarningType)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.WarningId" class="float-md-right">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.WarningId" class="float-md-right">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.WarningId" class="float-md-right">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <a asp-action="Create" class="btn btn-primary ">Add Warning</a>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="messageBoxLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageBoxLabel">Warning Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="~/js/WarningIndex.js"></script>

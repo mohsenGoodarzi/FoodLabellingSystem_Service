@@ -1,0 +1,135 @@
+﻿@model IEnumerable<FoodLabellingSystem_Service.Models.Ingredient>
+
+<link href="~/css/Ingredient_Phone_View.css" rel="stylesheet" media="screen and (min-width: 1px) and (max-width: 660px)" />
+<link href="~/css/Ingredient_Tablet_View.css" rel="stylesheet" media="screen and (min-width: 661px) and (max-width: 1200px)" />
+
+<div class="container push-down box-shadow animate__animated animate__fadeIn">
+    <h1>Lis of Ingredients</h1>
+    <div class="row" id="filter-section">
+        <div class="input-group mb-3  col-md-6">
+            <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+            <select class="form-select select form-control" id="select-box" aria-label="Default select example">
+                <option value="0" selected>Choose...</option>
+                <option value="1">Ingredient</option>
+                <option value="2">Description</option>
+                <option value="3">Amount</option>
+                <option value="4">Fat</option>
+                <option value="5">Carbs</option>
+                <option value="6">Protein</option>
+                <option value="7">Calory</option>
+                <option value="8">Ingredient Type</option>
+                <option value="9">Unit</option>
+                <option value="10">Warning</option>
+            </select>
+        </div>
+        <div class="input-group mb-3 col-md-6">
+            <input id="search-box" type="text" class="form-control" placeholder="Select a filter from select box." data-target="#messageBox" message="hello" aria-describedby="button-addon">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon">Add</button>
+        </div>
+        <div class="row d-flex mb-3 ml-3" id="criteria-box">
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.IngredientId)
+                </th>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Fat)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Carbs)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Protein)
+                </th>
+                <th data-target="number">
+                    @Html.DisplayNameFor(model => model.Calory)
+                </th>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.IngredientTypeId)
+                </th>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.UnitId)
+                </th>
+                <th data-target="string">
+                    @Html.DisplayNameFor(model => model.WarningId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IngredientId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Carbs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Protein)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Calory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IngredientTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WarningId)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.IngredientId" class="m-1 float-right">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.IngredientId" class="m-1 float-right">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.IngredientId" class="m-1 float-right">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-primary ">Add Ingredient</a>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="messageBoxLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageBoxLabel">Warning Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="~/js/IngredientIndex.js"></script>

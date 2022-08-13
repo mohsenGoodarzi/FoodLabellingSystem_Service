@@ -1,49 +1,124 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FoodLabellingSystem_Service</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/FoodLabellingSystem_Service.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FoodLabellingSystem_Service</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Favicons -->
+    <link href="~/assets/img/favicon.png" rel="icon">
+    <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - FoodLabellingSystem_Service - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Vendor CSS Files -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    @RenderSection("head",false)
+</head>
+
+<body>
+    <div class="sidebar hide">
+        <ul class="sidebar-header">
+            <li class="sidebar-title">Menu</li>
+            <li class="sidebar-close  push-right" id="close"> &times;</li>
+        </ul>
+        <ul>
+            <li class="sidebar-item">
+                <a href="/Units">Units</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/IngredientTypes">Groups</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/DishTypes">Dishes </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/CuisineTypes">Cuisines</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/Warnings">Warnings</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/Foods">Foods</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/Ingredients">Ingredients</a>
+            </li>
+            <li class="sidebar-item">
+                <form id="logoutForm" class="sidebar-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="btn btn-link ">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <!-- ======= Top Bar ======= -->
+    <section id="topbar" class="d-none d-lg-flex align-items-center fixed-top ">
+        <div class="container text-right">
+            <i class="icofont-phone"></i> +447476763707
+            <i class="icofont-clock-time icofont-rotate-180"></i> 24H online
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </section>
+    <header id="header" class="fixed-top align-items-center">
+        <div class="container">
+            @if (Context.User != null && Context.User.Identity != null)
+            {
+                if (Context.User.Identity.IsAuthenticated)
+                {
+
+                    <nav class="nav-menu d-lg-block navbar-dark ">
+                        <ul>
+                            <li class="text-light"><a class="icofont-navigation-menu bars"></a></li>
+                            <li>
+                                <h3 class="text-light"> <a id="manage" href="/Users/Panel"  title="Manage">@Context.User.Identity.Name</a></h3>
+                            </li>
+
+                        </ul>
+
+                    </nav>
+                }
+                else
+                {
+                    <nav class="nav-menu d-lg-block navbar-dark">
+                        <ul>
+                            <li>
+                                <a class="" id="register" href="/Users/Create" >Register</a>
+                            </li>
+                            <li>
+                                <a class="" id="login" href="/Users/Login" >Login</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+
+                }
+            }
+
+          
+            <nav class=" nav-menu d-none d-lg-block navbar-dark">
+
+                <ul class="mr-auto push-right">
+                    <li><a href="/#hero">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#why-us">Our Services</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav><!-- .nav-menu -->
+        </div>
+    </header><!-- End Header -->
+
+    <main role="main">
+        @RenderBody()
+    </main>
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("table", required: false)
+    <script src="~/js/sidebar.js"></script>
 </body>
 </html>

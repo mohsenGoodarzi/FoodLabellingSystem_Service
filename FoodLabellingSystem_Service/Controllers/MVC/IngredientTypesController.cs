@@ -47,7 +47,14 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             if (ModelState.IsValid) {
 
                 QueryResult queryResult = await _ingredientTypeService.Add(ingredientType);
+                if (queryResult.Result == QueryResultType.SUCCEED)
+                {
+                    return RedirectToAction("Index");
+                }
+                else {
 
+                    return View("Error", new ErrorViewModel() { QureyResult = queryResult });
+                }
             }
                 return View();
            
@@ -97,7 +104,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: IngredientTypeController/Delete/5
         [HttpPost("Delete/{ingredientTypeId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmation(string ingredientTypeId)
+        public async Task<ActionResult> DeleteConfirmed(string ingredientTypeId)
         {
             QueryResult queryResult = await _ingredientTypeService.Remove(ingredientTypeId);
             if (queryResult.Result == QueryResultType.SUCCEED) { 

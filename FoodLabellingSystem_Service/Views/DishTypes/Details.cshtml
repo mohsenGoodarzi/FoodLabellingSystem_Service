@@ -1,30 +1,30 @@
 ﻿@model FoodLabellingSystem_Service.Models.DishType
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div>
-    <h4>DishType</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DishTypeId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DishTypeId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Member)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Member)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+<div class="container push-down box-shadow">
+    <h1>Details of @Model.DishTypeId</h1>
+        <hr />
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-2">
+                @Html.DisplayNameFor(model => model.DishTypeId)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-4">
+                @Html.DisplayFor(model => model.DishTypeId)
+            </dd>
+        </dl>
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-2">
+                @Html.DisplayNameFor(model => model.Member)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-4">
+                @Html.DisplayFor(model => model.Member)
+            </dd>
+        </dl>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+            <a asp-action="Index" class="btn btn-outline-secondary ">Back</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+            <a asp-action="Edit" asp-route-id="@Model.DishTypeId" class="btn btn-outline-primary float-right">Edit</a>
+        </div>
+    </div>

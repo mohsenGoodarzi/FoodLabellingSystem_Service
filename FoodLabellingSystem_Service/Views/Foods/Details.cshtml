@@ -1,0 +1,54 @@
+﻿@model FoodLabellingSystem_Service.Models.Food
+
+<div class="container push-down box-shadow">
+    <h1>Details of @Model.FoodId</h1>
+    <hr />
+    <dl class="row justify-content-center">
+        <dt class="col-lg-2 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.FoodId)
+        </dt>
+        <dd class="col-lg-2 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.FoodId)
+        </dd>
+    </dl>
+    <dl class="row justify-content-center">
+        <dt class="col-lg-2 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-lg-2 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    <dl class="row justify-content-center">
+        <dt class="col-lg-2 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.FoodType)
+        </dt>
+        <dd class="col-lg-2 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.FoodType)
+        </dd>
+    </dl>
+    <dl class="row justify-content-center">
+        <dt class="col-lg-2 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.CuisineType)
+        </dt>
+        <dd class="col-lg-2 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.CuisineType)
+        </dd>
+    </dl>
+    <dl class="row justify-content-center">
+        <dt class="col-lg-2 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.DishType)
+        </dt>
+        <dd class="col-lg-2 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.DishType)
+        </dd>
+    </dl>
+    <div class="row justify-content-center">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+            <a asp-action="Index" class="btn btn-outline-secondary ">Back</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+            <a asp-action="Edit" asp-route-id="@Model.FoodId" class=" btn btn-outline-primary float-right">Edit</a>
+        </div>
+    </div>
+</div>

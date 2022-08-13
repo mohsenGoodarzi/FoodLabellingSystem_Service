@@ -1,0 +1,107 @@
+﻿table, thead, tbody, th, td, tr {
+    display: block;
+}
+
+tr {
+    border: 1px solid #ccc;
+    content: "";
+}
+
+tbody td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+    tbody td > a {
+        /* Behave  like a "row" */
+        border: none;
+        width: 4px;
+        position: relative;
+        padding-left: 0;
+    }
+
+td:before {
+    /* Now like a table header */
+    padding-right: 10px;
+    text-align: right;
+    font-weight: bold;
+}
+thead th:nth-of-type(11) {
+display:none;
+}
+/*
+	Label the data
+	*/
+tbody td:nth-of-type(1):before {
+    content: "Ingredient: ";
+}
+
+tbody td:nth-of-type(2):before {
+    content: "Description: ";
+}
+
+tbody td:nth-of-type(3):before {
+    content: "Amount: ";
+}
+
+tbody td:nth-of-type(4):before {
+    content: "Fat: ";
+}
+
+tbody td:nth-of-type(5):before {
+    content: "Carbs: ";
+}
+
+tbody td:nth-of-type(6):before {
+    content: "Protein: ";
+}
+
+tbody td:nth-of-type(7):before {
+    content: "Calory: ";
+}
+
+tbody td:nth-of-type(8):before {
+    content: "Group: ";
+}
+
+tbody td:nth-of-type(9):before {
+    content: "Unit: ";
+}
+
+tbody td:nth-of-type(10):before {
+    content: "Warning: ";
+}
+
+tbody td:nth-of-type(11):before {
+    content: "Actions: ";
+}
+
+table thead > tr > td {
+    padding: 2px;
+    border: none;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table {
+    margin-top: 20px;
+}
+
+.table td {
+    padding: 10px 5px 10px 5px;
+}
+
+.float-right {
+    float: none !important;
+}
+
+td > .btn {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0;
+}

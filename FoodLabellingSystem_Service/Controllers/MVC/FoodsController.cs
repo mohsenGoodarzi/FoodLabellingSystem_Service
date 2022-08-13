@@ -39,10 +39,19 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: FoodController/Create
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("Name,dishType,cuisineType,FoodType")]Food food)
+        public async Task<ActionResult> Create([Bind("FoodId,Description,DishType,CuisineType,FoodType")]Food food)
         {
             if (ModelState.IsValid) {
-                QueryResult queryResult = await _foodService.Add(food);
+                string userName = string.Empty;
+                HttpContext httpContext = HttpContext;
+                if ( HttpContext.User.Identity !=null && HttpContext.User.Identity.Name != null)
+                {
+                    userName = this.HttpContext.User.Identity.Name;
+                }
+                else {
+                    userName = "mgdana";
+                }
+                QueryResult queryResult = await _foodService.Add(food, userName);
                 if (queryResult.Result == QueryResultType.SUCCEED)
                 {
                     return RedirectToAction("Index");
@@ -69,11 +78,11 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: FoodController/Edit/5
         [HttpPost("Edit/{foodId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind("Name,dishType,cuisineType,FoodType")] Food food)
+        public async Task<ActionResult> Edit([Bind("FoodId,Description,DishType,CuisineType,FoodType")] Food food)
         {
             if (ModelState.IsValid) {
 
-              QueryResult queryResult = await  _foodService.Update(food);
+              QueryResult queryResult = await  _foodService.Update(food,"mgdana");
                 if (queryResult.Result == QueryResultType.SUCCEED)
                 {
                     return RedirectToAction("Index");
@@ -98,7 +107,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: FoodController/Delete/5
         [HttpPost("Delete/{foodId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmation(string foodId)
+        public async Task<ActionResult> DeleteConfirmed(string foodId)
         {
             QueryResult queryResult = await _foodService.Delete(foodId);
             if (queryResult.Result == QueryResultType.SUCCEED)

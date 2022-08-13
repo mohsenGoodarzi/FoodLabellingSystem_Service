@@ -7,8 +7,8 @@ namespace FoodLabellingSystem_Service.Services.Interfaces
     {
         public Task<Foods> GetAll();
         public Task<Food> GetById(string foodId);
-        public Task<QueryResult> Add(Food food);
-        public Task<QueryResult> Update(Food food);
+        public Task<QueryResult> Add(Food food,string userName);
+        public Task<QueryResult> Update(Food food, string userName);
         public Task<QueryResult> Delete(string foodId);
 
     }

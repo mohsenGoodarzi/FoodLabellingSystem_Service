@@ -11,6 +11,8 @@
         public StatusType Status { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public bool IsEmailConfirmed { get; set; }
+        public bool IsPhoneConfirmed { get; set; }  
 
     }
 }

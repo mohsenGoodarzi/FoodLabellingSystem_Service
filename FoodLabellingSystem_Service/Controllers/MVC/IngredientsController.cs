@@ -105,7 +105,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: IngredientController/Delete/5
         [HttpPost("Delete/{ingredientId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmation(string ingredientId)
+        public async Task<ActionResult> DeleteConfirmed(string ingredientId)
         {
            QueryResult queryResult = await _ingredientService.Remove(ingredientId);
             if (queryResult.Result == QueryResultType.SUCCEED) { 

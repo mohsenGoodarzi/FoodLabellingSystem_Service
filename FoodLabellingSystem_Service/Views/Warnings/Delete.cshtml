@@ -1,0 +1,45 @@
+﻿@model FoodLabellingSystem_Service.Models.Warning
+
+<div class="container push-down box-shadow">
+    <h1>Delete @Model.WarningId</h1>
+    <h3>Are you sure you want to delete @Model.WarningId?</h3>
+    <hr />
+    <dl class="row justify-content-center">
+        <dt class="col-lg-1 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.WarningId)
+        </dt>
+        <dd class="col-lg-3 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.WarningId)
+        </dd>
+    </dl>
+    <dl class="row justify-content-center">
+        <dt class="col-lg-1 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.WarningType)
+        </dt>
+        <dd class="col-lg-3 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.WarningType)
+        </dd>
+    </dl>
+    <dl class="row justify-content-center">
+
+        <dt class="col-lg-1 col-md-2 col-sm-2">
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+        <dd class="col-lg-3 col-md-4 col-sm-4">
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="WarningId" />
+
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <a asp-action="Index" class="btn btn-primary">Back</a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <input type="submit" value="Delete" class="btn btn-outline-danger float-right" />
+            </div>
+        </div>
+    </form>
+</div>

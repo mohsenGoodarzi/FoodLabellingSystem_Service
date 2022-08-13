@@ -1,0 +1,80 @@
+﻿@model FoodLabellingSystem_Service.Models.FoodIngredient
+
+<link href="~/css/group.css" rel="stylesheet" />
+<div class="container push-down box-shadow">
+    <h1>Edit @Model.IngredientId</h1>
+    <hr />
+    <form asp-action="Edit">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IngredientId" />
+                <div class="form-group">
+                    <label asp-for="FoodId" class="control-label"></label>
+                    <input asp-for="FoodId" class="form-control" type="hidden" />
+                    <input value="@ViewBag.FoodId" class="form-control" disabled />
+                    <span asp-validation-for="FoodId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="group">Group</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="click on me to select a group" id="groupTextBox" data-toggle="" data-target="#groupDialogBox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IngredientId" class="control-label"></label>
+                    <select asp-for="IngredientId" class="form-control" asp-items="ViewBag.IngredientId"></select>
+                    <span asp-validation-for="IngredientId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnitId" class="control-label"></label>
+                    <select asp-for="UnitId" class="form-control" asp-items="ViewBag.UnitId"></select>
+                    <span asp-validation-for="UnitId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="control-label"></label>
+                    <input asp-for="Amount" class="form-control" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <a href="/FoodIngredients/Index/@Model.FoodId" class="btn btn-secondary">Back</a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <input type="submit" value="Save" class="btn btn-primary  float-right" />
+            </div>
+
+        </div>
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="groupDialogBox" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="groupDialogBoxTitle" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Select Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="group">
+                    <div class="group-path">
+                    </div>
+                    <ul class="group-body">
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Save change</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script type="module" src="~/js/FoodIngredientEdit.js"></script>

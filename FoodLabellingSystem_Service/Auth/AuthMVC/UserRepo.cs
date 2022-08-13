@@ -1,91 +1,52 @@
 ﻿using FoodLabellingSystem_Service.Auth.AuthMVC.Models;
 using FoodLabellingSystem_Service.Auth.AuthMVC.Persistence;
+using FoodLabellingSystem_Service.Auth.AuthMVC.Services;
+using FoodLabellingSystem_Service.Other;
 
 namespace FoodLabellingSystem_Service.Auth.AuthMVC
 {
     public class UserRepo : IUserRepo
     {
-        private List<IUser> _users;
-
-        public List<IUser> Users { get => _users; }
-        public UserRepo()
+      
+        private readonly IUserService _userService;
+        public List<IUser> Users
         {
-            _users = new List<IUser>() {
-            new User("AF","AL","AA","AA@gmail.com","HashedPassword","10000000001","AA@gmail.com",RoleType.Administrator,StatusType.Registered),
-            new User("BF","BL","BB","BB@gmail.com","HashedPassword","10000000002","BB@gmail.com",RoleType.Administrator,StatusType.Suspended),
-            new User("CF","CL","CC","CC@gmail.com","HashedPassword","10000000003","CC@gmail.com",RoleType.Administrator,StatusType.Activated),
-            new User("DF","DL","DD","DD@gmail.com","HashedPassword","10000000004","DD@gmail.com",RoleType.Administrator,StatusType.Closed)
-            };
-        }
-        public UserRepo( IUserDAO userDAO)
-        {
-            _users = new List<IUser>() {
-            new User("AF","AL","AA","AA@gmail.com","HashedPassword","10000000001","AA@gmail.com",RoleType.Administrator,StatusType.Registered),
-            new User("BF","BL","BB","BB@gmail.com","HashedPassword","10000000002","BB@gmail.com",RoleType.Administrator,StatusType.Suspended),
-            new User("CF","CL","CC","CC@gmail.com","HashedPassword","10000000003","CC@gmail.com",RoleType.Administrator,StatusType.Activated),
-            new User("DF","DL","DD","DD@gmail.com","HashedPassword","10000000004","DD@gmail.com",RoleType.Administrator,StatusType.Closed)
-            };
-        }
-        public void Add(User user)
-        {
-            _users.Add(user);
-        }
-
-        public void Delete(string userName)
-        {
-            if (string.IsNullOrEmpty(userName))
+            get
             {
-
-                var user = FindByEmail(userName);
-                if (user != null)
-                {
-                    _users.Remove(user);
-                }
+                return _userService.GetAll().Result;
             }
-
         }
-
-        public IUser? FindByEmail(string email)
+        public  UserRepo( IUserService userService)
         {
-            return (from myUser in _users
+            _userService = userService;
+           
+        }
+       
+        public IUser FindByEmail(string email)
+        {
+             var user = (from myUser in Users
                     where myUser.Email == email
                     select myUser).FirstOrDefault();
+
+            return user != null ? user : new User();
         }
 
-         public IUser? FindByName(string userName)
+         public IUser FindByName(string userName)
         {
-            return (from myUser in _users
+            var user = (from myUser in Users
                     where myUser.UserName == userName
                     select myUser).FirstOrDefault();
+
+            return user != null ? user : new User();
         }
 
-        public IUser? FindByPhone(string phone)
+        public IUser FindByPhone(string phone)
         {
-            return (from myUser in _users
+            var user = (from myUser in Users
                     where myUser.Phone == phone
                     select myUser).FirstOrDefault();
-        }
 
-        public IUser Update(string userName, User user)
-        {
-            var foundUser = (from myUser in _users
-                             where myUser.UserName == userName
-                             select myUser).FirstOrDefault();
-
-            if (foundUser != null)
-            {
-                foundUser.FirstName = user.FirstName;
-                foundUser.LastName = user.LastName;
-                foundUser.UserName = user.UserName;
-                foundUser.Password = user.Password;
-                foundUser.Email = user.Email;
-                foundUser.Phone = user.Phone;
-                foundUser.Role = user.Role;
-                foundUser.Status = user.Status;
-                return foundUser;
-            }
-
-            return new User();
+            return user != null ? user : new User();
         }
 
       

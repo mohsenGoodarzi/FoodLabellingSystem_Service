@@ -19,18 +19,16 @@ namespace FoodLabellingSystem_Service.Services
         {
                       return Task.Run(() => {
               return _foodIngredientDAO.Add(foodIngredient.FoodId, 
-                  foodIngredient.IngredientId, foodIngredient.UnitId, foodIngredient.Amount,
-                  foodIngredient.Fat, foodIngredient.Carbs, foodIngredient.Protein,
-                  foodIngredient.Calory);
+                  foodIngredient.IngredientId, foodIngredient.UnitId, foodIngredient.Amount);
                
             });
         }
 
-        public Task<QueryResult> Delete(string foodIngredientId, string ingredientId)
+        public Task<QueryResult> Delete(string foodId, string ingredientId)
         {
             return Task.Run(() => {
 
-                return _foodIngredientDAO.Remove(foodIngredientId, ingredientId);
+                return _foodIngredientDAO.Remove(foodId, ingredientId);
             });
         }
 
@@ -55,8 +53,7 @@ namespace FoodLabellingSystem_Service.Services
             return Task.Run(() => {
                return _foodIngredientDAO.Update(foodIngredient.FoodId,
                    foodIngredient.IngredientId, foodIngredient.UnitId,
-                   foodIngredient.Amount, foodIngredient.Fat, 
-                   foodIngredient.Carbs, foodIngredient.Protein, foodIngredient.Calory);
+                   foodIngredient.Amount);
             });
         }
 

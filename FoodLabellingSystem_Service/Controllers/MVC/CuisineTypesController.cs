@@ -9,8 +9,9 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
     public class CuisineTypesController : Controller
     {
         private readonly ICuisineTypeService _cuisineTypeService;
-        public CuisineTypesController(ICuisineTypeService cusineTypeService) {
-
+        private readonly ILogger<CuisineTypesController> _logger;
+        public CuisineTypesController(ILogger<CuisineTypesController> logger, ICuisineTypeService cusineTypeService) {
+            _logger = logger;
             _cuisineTypeService = cusineTypeService;
         }
         [HttpGet("Index")]
@@ -44,6 +45,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
                 QueryResult queryResult = await _cuisineTypeService.Add(cuisineType);
                 if (queryResult.Result != QueryResultType.SUCCEED)
                 {
+                 //   _logger.LogError(DateTime.UtcNow.ToString() + " user{UserName}, Description {message}", queryResult.Message);
                     return View("Error", new ErrorViewModel() {QureyResult = queryResult} );
                 }
                 else {
@@ -86,9 +88,9 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             return View();
         }
 
-        [HttpGet("Remove/{cuisineTypeId}")]
+        [HttpGet("Delete/{cuisineTypeId}")]
         // GET: CuisineTypeController/Delete/5
-        public async Task<ActionResult> Remove(string cuisineTypeId)
+        public async Task<ActionResult> Delete(string cuisineTypeId)
         {
             CuisineType cuisineType = await _cuisineTypeService.GetById(cuisineTypeId);
             if (cuisineType == null) { 
@@ -98,9 +100,9 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
         // POST: CuisineTypeController/Delete/5
-        [HttpPost("Remove/{cuisineTypeId}")]
+        [HttpPost("Delete/{cuisineTypeId}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemoveConfirmation(string cuisineTypeId)
+        public async Task<ActionResult> DeleteConfirmed(string cuisineTypeId)
         {
            QueryResult queryResult = await _cuisineTypeService.Remove(cuisineTypeId);
             if (queryResult.Result != QueryResultType.SUCCEED)

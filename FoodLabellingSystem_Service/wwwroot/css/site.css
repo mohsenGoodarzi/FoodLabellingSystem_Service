@@ -1,18 +1,38 @@
-html {
-  font-size: 14px;
-}
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+#topbar {
+    position: sticky !important;
+    background: black !important;
+    background: center !important;
+    opacity: 0.5;
 }
-
-html {
-  position: relative;
-  min-height: 100%;
+#header {
+    position: sticky !important;
+    margin-bottom: 20px;
 }
-
-body {
-  margin-bottom: 60px;
+.nav-menu a {
+line-height:30px;
+}
+.box-shadow {
+    box-shadow: 0 .5rem 1rem 5px rgba(0,0,0,.15) !important;
+    border-radius: 10px;
+    padding: 40px;
+    min-width: 280px;
+    background-color: white;
+    margin-bottom: 50px;
+}
+.big-box {
+margin-left:5vw;
+margin-right:5vw;
+width:90vw;
+}
+th{
+    cursor: pointer; 
+}
+button.mobile-nav-toggle {
+line-height:2px
+}
+h1,h2,h3,h4,h5,h6{
+    font-family:  Helvetica, sans-serif,Arial !important;
 }

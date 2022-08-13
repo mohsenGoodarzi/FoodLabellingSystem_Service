@@ -19,7 +19,7 @@ namespace FoodLabellingSystem_Service.Persistence
         public QueryResult Add(string ingredientId, string description, string ingredientTypeId, string unitId, double amount, double fat, double carbs, double protein, double calory, string warningId)
         {
             QueryResult queryResult = new QueryResult();
-            using (var connection = new SqlConnection())
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
             {
                 connection.Open();
                 if (connection.State == ConnectionState.Open)
@@ -38,9 +38,9 @@ namespace FoodLabellingSystem_Service.Persistence
                     sqlCommand.Parameters.AddWithValue("@amount", amount);
                     sqlCommand.Parameters.AddWithValue("@fat", fat);
                     sqlCommand.Parameters.AddWithValue("@carbs", carbs);
-                    sqlCommand.Parameters.AddWithValue("@carbs", protein);
-                    sqlCommand.Parameters.AddWithValue("@carbs", calory);
-                    sqlCommand.Parameters.AddWithValue("@carbs", warningId);
+                    sqlCommand.Parameters.AddWithValue("@protein", protein);
+                    sqlCommand.Parameters.AddWithValue("@calory", calory);
+                    sqlCommand.Parameters.AddWithValue("@warningId", warningId);
 
 
                     try
@@ -170,10 +170,10 @@ namespace FoodLabellingSystem_Service.Persistence
                 {
                     SqlCommand sqlCommand = connection.CreateCommand();
                     sqlCommand.CommandType = CommandType.Text;
-                    sqlCommand.CommandText = "update Ingredient set ingredientId = @ingredientId," +
+                    sqlCommand.CommandText = "update Ingredient set " +
                         " description = @description, ingredientTypeId = @ingredientTypeId," +
                         " unitId = @unitId, amount = @amount, fat = @fat, carbs = @carbs," +
-                        " protein = @protein, calory = @calory, warningId = @warningId)";
+                        " protein = @protein, calory = @calory, warningId = @warningId where ingredientId = @ingredientId;";
 
                     sqlCommand.Parameters.AddWithValue("@ingredientId", ingredientId);
                     sqlCommand.Parameters.AddWithValue("@description", description);

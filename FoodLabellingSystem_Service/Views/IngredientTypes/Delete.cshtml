@@ -1,0 +1,35 @@
+﻿@model FoodLabellingSystem_Service.Models.IngredientType
+
+<div class="container push-down box-shadow">
+    <h1>Delete @Model.IngredientTypeId</h1>
+    <h3>Are you sure you want to delete @Model.IngredientTypeId?</h3>
+        <hr />
+        <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-2">
+                @Html.DisplayNameFor(model => model.IngredientTypeId)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-4">
+                @Html.DisplayFor(model => model.IngredientTypeId)
+            </dd>
+        </dl>
+         <dl class="row justify-content-center">
+            <dt class="col-lg-2 col-md-2 col-sm-2">
+                @Html.DisplayNameFor(model => model.Member)
+            </dt>
+            <dd class="col-lg-2 col-md-4 col-sm-4">
+                @Html.DisplayFor(model => model.Member)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="IngredientTypeId" />
+            <div class="row justify-content-center">
+                <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                    <a asp-action="Index" class="btn btn-primary">Back</a>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                    <input type="submit" value="Delete" class="btn btn-outline-danger float-right" />
+                </div>
+            </div>
+        </form>
+    </div>

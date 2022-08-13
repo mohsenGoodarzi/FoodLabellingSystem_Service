@@ -1,0 +1,146 @@
+﻿ul.group-body {
+    padding: 0;
+}
+
+.group {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+    border-radius:5px;
+}
+
+.group-path {
+    display: inline-block;
+    margin: 2px 0 2px 0;
+    padding: 13px;
+  
+}
+
+.path-item {
+    color: blue;
+}
+
+    .path-item:hover {
+        color: blue !important;
+    }
+
+.group-path:hover .path-item {
+    color: rgba(99, 99, 247, 0.582);
+}
+
+.path-item:hover {
+    cursor: pointer;
+}
+
+.path-item::after {
+    content: ">";
+    margin: 0px 5px 0px 5px;
+}
+
+.path-item:last-child {
+    color: black !important;
+    border-width: 0px 0px 3px 0px !important;
+    border-color: blue;
+    border-style: solid;
+}
+
+    .path-item:last-child::after {
+        content: "";
+    }
+
+.group-body {
+    display: block;
+}
+
+.group-body-item {
+    display: flex;
+    color: blue;
+    margin: 2px 0 2px 0;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+}
+    .group-body-item:last-child {
+        border-radius: 0 0 5px 5px;
+    }
+    .group-body-item > span {
+        padding: 13px;
+    }
+
+    .group-body-item:not(.active-group-body-item):hover {
+        color: blue !important;
+        cursor: pointer;
+    }
+
+.group-body:hover .group-body-item {
+    color: rgba(99, 99, 247, 0.582);
+}
+
+.active-group-body-item {
+    cursor: default !important;
+    color: rgb(0, 0, 0) !important;
+    border-color: blue;
+}
+
+    .active-group-body-item > .item-button {
+        cursor: pointer !important;
+        color: blue !important;
+    }
+
+.item-title {
+    flex: auto;
+    margin: auto 5px auto 5px;
+}
+
+.item-button {
+    display: block;
+    text-align: center;
+    padding: 5px;
+    align-items: center;
+    margin: auto 5px auto 5px;
+}
+
+@keyframes unselected {
+    0% {
+        border-width: 0px 0px 0px 10px;
+        border-style: solid;
+        border-width: 0px 0px 0px 10px;
+        opacity: .6;
+    }
+
+    100% {
+        border-width: 0px 0px 0px 0px;
+        opacity: 1.0;
+    }
+}
+
+@keyframes selected {
+    0% {
+        border-width: 0px 0px 0px 0px;
+    }
+
+    100% {
+        border-style: solid;
+        border-width: 0px 0px 0px 10px;
+    }
+}
+
+
+.selected {
+    animation: selected 0.1s ease-in 0s;
+    border-style: solid;
+    border-width: 0px 0px 0px 10px;
+}
+
+.unselected {
+    animation: unselected 0.1s ease-out 0s;
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+}
+
+/* This part does not belong to group*/
+
+.modal-header {
+border-bottom:0;
+}
+.modal-footer {
+border-top:0;
+}

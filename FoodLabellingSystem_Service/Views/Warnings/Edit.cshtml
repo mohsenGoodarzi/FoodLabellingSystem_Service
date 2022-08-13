@@ -1,43 +1,39 @@
 ﻿@model FoodLabellingSystem_Service.Models.Warning
 
-@{
-    ViewData["Title"] = "Edit";
-}
-
-<h1>Edit</h1>
-
-<h4>Warning</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="WarningId" class="control-label"></label>
-                <input asp-for="WarningId" class="form-control" />
-                <span asp-validation-for="WarningId" class="text-danger"></span>
+<div class="container push-down box-shadow">
+    <h1>Edit @Model.WarningId</h1>
+    <hr />
+    <form asp-action="Edit">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="WarningId" />
+                <div class="form-group">
+                    <label asp-for="WarningId" class="control-label">Warning Name</label>
+                    <input asp-for="WarningId" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="WarningType" class="control-label">Warning Type</label>
+                    <select asp-for="WarningType" class="form-control" asp-items="ViewBag.WarningType">Warning Type</select>
+                    <span asp-validation-for="WarningType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Message" class="control-label"></label>
+                    <textarea asp-for="Message" class="form-control" style="height:150px;"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
-                <input asp-for="Message" class="form-control" />
-                <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <a asp-action="Index" class="btn btn-secondary ">Back</a>
             </div>
-            <div class="form-group">
-                <label asp-for="WarningType" class="control-label"></label>
-                <input asp-for="WarningType" class="form-control" />
-                <span asp-validation-for="WarningType" class="text-danger"></span>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-6">
+                <input type="submit" value="Save" class="btn btn-primary float-right" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

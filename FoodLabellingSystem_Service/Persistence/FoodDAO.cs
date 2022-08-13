@@ -45,7 +45,7 @@ namespace FoodLabellingSystem_Service.Persistence
             return foods;
         }
 
-        public QueryResult Add(string foodId, string description, string dishType, string cuisineType, string foodType) {
+        public QueryResult Add(string foodId, string description, string dishType, string cuisineType, string foodType, string userName) {
             QueryResult queryResult = new QueryResult();
             using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb"))) {
 
@@ -53,14 +53,14 @@ namespace FoodLabellingSystem_Service.Persistence
                 if (connection.State==ConnectionState.Open) { 
                 
                     SqlCommand sqlCommand = connection.CreateCommand();
-                    sqlCommand.CommandText = "insert into Food(foodId,description,dishType,cuisineType,foodType) values(@foodId,@description,@dishType,@cuisineType,@foodType)";
+                    sqlCommand.CommandText = "insert into Food(foodId,description,dishType,cuisineType,foodType,userName) values(@foodId,@description,@dishType,@cuisineType,@foodType,@userName)";
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@foodId", foodId);
                     sqlCommand.Parameters.AddWithValue("@description", description);
                     sqlCommand.Parameters.AddWithValue("@dishType", dishType);
                     sqlCommand.Parameters.AddWithValue("@cuisineType", cuisineType);
                     sqlCommand.Parameters.AddWithValue("@foodType", foodType);
-                    
+                    sqlCommand.Parameters.AddWithValue("@userName", userName);
                     try
                     {
                         int result = sqlCommand.ExecuteNonQuery();
@@ -121,7 +121,7 @@ namespace FoodLabellingSystem_Service.Persistence
             }
             return queryResult;
         }
-        public QueryResult Update(string foodId, string description, string dishType, string cuisineType, string foodType)
+        public QueryResult Update(string foodId, string description, string dishType, string cuisineType, string foodType, string userName)
         {
             QueryResult queryResult = new QueryResult();
             using (var connection = new SqlConnection(_configuration.GetConnectionString("serverDb")))
@@ -132,16 +132,15 @@ namespace FoodLabellingSystem_Service.Persistence
                 {
 
                     SqlCommand sqlCommand = connection.CreateCommand();
-                    sqlCommand.CommandText = "update set Food foodId = @foodId,"+
-                        " description = @description, dishType = @dishType,"+
-                        " cuisineType = @cuisineType, foodType = @foodType;";
+                    sqlCommand.CommandText = "update  Food set description = @description, dishType = @dishType," +
+                        " cuisineType = @cuisineType, foodType = @foodType, userName = @userName where foodId = @foodId ";
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@foodId", foodId);
                     sqlCommand.Parameters.AddWithValue("@description", description);
                     sqlCommand.Parameters.AddWithValue("@dishType", dishType);
                     sqlCommand.Parameters.AddWithValue("@cuisineType", cuisineType);
                     sqlCommand.Parameters.AddWithValue("@foodType", foodType);
-
+                    sqlCommand.Parameters.AddWithValue("@userName", userName);
                     try
                     {
                         int result = sqlCommand.ExecuteNonQuery();

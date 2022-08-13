@@ -7,8 +7,8 @@ namespace FoodLabellingSystem_Service.Persistence.Interfaces
     {
         public List<FoodIngredient> GetAll();
         public FoodIngredient GetById(string foodId, string ingredientId);
-        public QueryResult Add(string foodId, string ingredientId, string unitId, double amount, double fat, double carbs, double protein, double calory);
+        public QueryResult Add(string foodId, string ingredientId, string unitId, double amount);
         public QueryResult Remove(string foodId, string ingredientId);
-        public QueryResult Update(string foodId, string ingredientId, string unitId, double amount, double fat, double carbs, double protein, double calory);
+        public QueryResult Update(string foodId, string ingredientId, string unitId, double amount);
     }
 }
