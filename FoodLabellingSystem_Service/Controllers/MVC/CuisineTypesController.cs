@@ -1,6 +1,7 @@
 ﻿using FoodLabellingSystem_Service.Models;
 using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodLabellingSystem_Service.Controllers.MVC
@@ -14,7 +15,9 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
             _logger = logger;
             _cuisineTypeService = cusineTypeService;
         }
+
         [HttpGet("Index")]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public async Task<ActionResult> Index()
         {
             CuisineTypes cuisineTypes = await _cuisineTypeService.GetAll();
@@ -22,6 +25,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
         [HttpGet("Details/{cuisineTypeId}")]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public async Task<ActionResult> Details(string cuisineTypeId)
         {
             CuisineType cuisineType = await _cuisineTypeService.GetById(cuisineTypeId);
@@ -29,6 +33,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
         [HttpGet("Create")]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public ActionResult Create()
         {
             return View();
@@ -37,6 +42,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: CuisineTypeController/Create
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public async Task<ActionResult> Create(CuisineType cuisineType)
         {
             if (ModelState.IsValid)
@@ -57,6 +63,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
        [HttpGet("Edit/{cuisineTypeId}")]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public async  Task<ActionResult> Edit(string cuisineTypeId)
         {
             CuisineType founded =  await _cuisineTypeService.GetById(cuisineTypeId);
@@ -71,6 +78,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: CuisineTypeController/Edit/5
         [HttpPost("Edit/{cuisineTypeId}")]
         [ValidateAntiForgeryToken]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public async Task<ActionResult> Edit(CuisineType cuisineType)
         {
             if (ModelState.IsValid) {
@@ -89,6 +97,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         }
 
         [HttpGet("Delete/{cuisineTypeId}")]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         // GET: CuisineTypeController/Delete/5
         public async Task<ActionResult> Delete(string cuisineTypeId)
         {
@@ -102,6 +111,7 @@ namespace FoodLabellingSystem_Service.Controllers.MVC
         // POST: CuisineTypeController/Delete/5
         [HttpPost("Delete/{cuisineTypeId}")]
         [ValidateAntiForgeryToken]
+        [Authorize(AuthenticationSchemes = "FoodLabellingSystem")]
         public async Task<ActionResult> DeleteConfirmed(string cuisineTypeId)
         {
            QueryResult queryResult = await _cuisineTypeService.Remove(cuisineTypeId);

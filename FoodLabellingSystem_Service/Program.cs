@@ -1,17 +1,14 @@
 ﻿using FoodLabellingSystem_Service.Persistence;
 using FoodLabellingSystem_Service.Persistence.Interfaces;
 using FoodLabellingSystem_Service.Services;
-using FoodLabellingSystem_Service.Controllers;
 using FoodLabellingSystem_Service.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Options;
-using FoodLabellingSystem_Service.Other;
 using FoodLabellingSystem_Service.Auth.AuthMVC.Persistence;
 using FoodLabellingSystem_Service.Auth.AuthMVC.Services;
 using FoodLabellingSystem_Service.Auth.AuthMVC;
 using FoodLabellingSystem_Service.Auth.AuthMVC.Models;
 using FoodLabellingSystem_Service.Auth.AuthMVC.Others;
+using FoodLabellingSystem_Service.Auth.AuthAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +53,11 @@ builder.Services.AddScoped<IUser, User>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<AuthMVC<UserRepo>>();
 builder.Services.AddSession();
+
+// Auth API injection
+builder.Services.AddAuthentication(options => options.DefaultScheme = "FoodLabellingSystem").AddScheme<AuthSchemeOptions, AuthHandler>("Delta", options => { });
+
+
 
 // other services
 builder.Services.AddScoped<IHashHelper, HashHelper>();
